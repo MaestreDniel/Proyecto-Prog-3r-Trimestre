@@ -1,5 +1,9 @@
 package Data;
 
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Persona  {
     private String nombre;
     private String apellido;
@@ -39,6 +43,11 @@ public class Persona  {
     }
 
     public void setContraseña(String contraseña) {
+        Scanner scanner = new Scanner(System.in);
+        Pattern pat = Pattern.compile("/^[^\\w]{8,20}$/");
+        System.out.print(contraseña);
+        contraseña = scanner.nextLine();
+        Matcher mat = pat.matcher(contraseña);
         this.contraseña = contraseña;
     }
 

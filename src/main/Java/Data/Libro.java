@@ -1,14 +1,14 @@
 package Data;
 
 
-
+import java.util.*;
 
 public class Libro {
     private String ISBN;
     private String titulo;
     private String autor;
     private String editorial;
-    private Integer num_copias;
+    private Integer num_copias = 1;
     private Integer num_copias_disponibles;
 
 
@@ -96,4 +96,36 @@ public class Libro {
                 ", num_copias_disponibles=" + num_copias_disponibles +
                 '}';
     }
+
+    Integer contadorLibros = 0;
+
+    public static String añadirLibro(Libro libro){
+      List<Libro> libroList = new ArrayList<Libro>();
+      libroList.add(libro.contadorLibros);
+    };
+
+    public static String eliminarLibro(Libro libro){
+        Scanner scanner = new Scanner(System.in);
+        String isbn = scanner.nextLine();
+
+}
+    public static String buscarISBN(Libro libro){
+        Scanner scanner = new Scanner(System.in);
+        String busquedaISBN = scanner.nextLine();
+        //Añadir un for para recorrer la lista
+        if (busquedaISBN == ){
+            System.out.println(libro.ISBN);
+        }
+        else{
+            System.out.println(-1);
+        }
+    }
+
+
+    public static String  buscarLibro( Libro libro){
+        Scanner scanner = new Scanner(System.in);
+        String busquedaLibro = scanner.nextLine();
+        return libro.titulo;
+    }
+
 }
