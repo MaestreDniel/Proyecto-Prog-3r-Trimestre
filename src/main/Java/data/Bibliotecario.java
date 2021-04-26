@@ -1,9 +1,11 @@
 package data;
 
+import java.util.Scanner;
+
 public class Bibliotecario extends Persona {
     private String trabajo;
-    private String NIF_Bibliotecario;
-    private String contraseña_Bibliotecario;
+    private String NIF;
+    private String contraseña;
 
     public String getTrabajo() {
         return trabajo;
@@ -13,59 +15,72 @@ public class Bibliotecario extends Persona {
         this.trabajo = trabajo;
     }
 
-    public String getNIF_Bibliotecario() {
-        return NIF_Bibliotecario;
+    public String getNIF() {
+        return NIF;
     }
 
-    public void setNIF_Bibliotecario(String NIF_Bibliotecario) {
-        this.NIF_Bibliotecario = NIF_Bibliotecario;
+    public void setNIF(String NIF) {
+        this.NIF = NIF;
     }
 
-    public String getContraseña_Bibliotecario() {
-        return contraseña_Bibliotecario;
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setContraseña_Bibliotecario(String contraseña_Bibliotecario) {
-        this.contraseña_Bibliotecario = contraseña_Bibliotecario;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public Bibliotecario(){
 
     }
 
-    public Bibliotecario(String trabajo, String NIF_Bibliotecario, String contraseña_Bibliotecario) {
+    public Bibliotecario(String trabajo, String NIF, String contraseña) {
         this.trabajo = trabajo;
-        this.NIF_Bibliotecario = NIF_Bibliotecario;
-        this.contraseña_Bibliotecario = contraseña_Bibliotecario;
+        this.NIF = NIF;
+        this.contraseña = contraseña;
     }
 
-    public Bibliotecario(String nombre, String apellido, String NIF, String contraseña, String trabajo, String NIF_Bibliotecario, String contraseña_Bibliotecario) {
-        super(nombre, apellido, NIF, contraseña);
+    public Bibliotecario(String nombre, String apellido1, String apellido2, Integer edad, String trabajo, String NIF, String contraseña) {
+        super(nombre, apellido1, apellido2, edad);
         this.trabajo = trabajo;
-        this.NIF_Bibliotecario = NIF_Bibliotecario;
-        this.contraseña_Bibliotecario = contraseña_Bibliotecario;
+        this.NIF = NIF;
+        this.contraseña = contraseña;
     }
 
-    public Bibliotecario(Persona persona, String trabajo, String NIF_Bibliotecario, String contraseña_Bibliotecario) {
+    public Bibliotecario(Persona persona, String trabajo, String NIF, String contraseña) {
         super(persona);
         this.trabajo = trabajo;
-        this.NIF_Bibliotecario = NIF_Bibliotecario;
-        this.contraseña_Bibliotecario = contraseña_Bibliotecario;
+        this.NIF = NIF;
+        this.contraseña = contraseña;
     }
 
-    public Bibliotecario(Bibliotecario bibliotecario){
-        super(bibliotecario);
+    public Bibliotecario(Bibliotecario bibliotecario) {
         this.trabajo = bibliotecario.trabajo;
-        this.NIF_Bibliotecario = bibliotecario.NIF_Bibliotecario;
-        this.contraseña_Bibliotecario = bibliotecario.contraseña_Bibliotecario;
+        this.NIF = bibliotecario.NIF;
+        this.contraseña = bibliotecario.contraseña;
     }
 
     @Override
     public String toString() {
-        return "Biblotecario{" +
+        return "Bibliotecario{" +
                 "trabajo='" + trabajo + '\'' +
-                ", NIF_Bibliotecario='" + NIF_Bibliotecario + '\'' +
-                ", contraseña_Bibliotecario='" + contraseña_Bibliotecario + '\'' +
+                ", NIF='" + NIF + '\'' +
+                ", contraseña='" + contraseña + '\'' +
                 '}';
     }
+
+    public static void login(){
+        Bibliotecario bibliotecario = new Bibliotecario();
+        System.out.println("---------Login---------");
+        System.out.println("Introduce el NIF");
+        Scanner nif = new Scanner(System.in);
+        String setnif = nif.nextLine();
+        bibliotecario.setNIF(setnif);
+        System.out.println("Introduce contraseña");
+        Scanner pass = new Scanner(System.in);
+        String password = pass.nextLine();
+        bibliotecario.setNIF(password);
+    }
+
 }

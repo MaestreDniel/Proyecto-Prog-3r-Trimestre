@@ -1,6 +1,7 @@
 package data;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Usuario extends Persona {
     private Integer telefono;
@@ -53,8 +54,16 @@ public class Usuario extends Persona {
 
     }
 
-    public Usuario(String nombre, String apellido, String NIF, String contraseña, Integer telefono, String direccion, Integer codigo_postal, String email, List<String> reservas) {
-        super(nombre, apellido, NIF, contraseña);
+    public Usuario(Integer telefono, String direccion, Integer codigo_postal, String email, List<String> reservas) {
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.codigo_postal = codigo_postal;
+        this.email = email;
+        this.reservas = reservas;
+    }
+
+    public Usuario(String nombre, String apellido1, String apellido2, Integer edad, Integer telefono, String direccion, Integer codigo_postal, String email, List<String> reservas) {
+        super(nombre, apellido1, apellido2, edad);
         this.telefono = telefono;
         this.direccion = direccion;
         this.codigo_postal = codigo_postal;
@@ -71,15 +80,6 @@ public class Usuario extends Persona {
         this.reservas = reservas;
     }
 
-    public Usuario(Usuario usuario){
-        super(usuario);
-        this.telefono = usuario.telefono;
-        this.direccion = usuario.direccion;
-        this.codigo_postal = usuario.codigo_postal;
-        this.email = usuario.email;
-        this.reservas = usuario.reservas;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
@@ -89,5 +89,37 @@ public class Usuario extends Persona {
                 ", email='" + email + '\'' +
                 ", reservas=" + reservas +
                 '}';
+    }
+
+    public static void solicitarDatosUsuario(){
+        System.out.println("Escribe los datos: ");
+        System.out.println("Nombre de usuario: ");
+        Scanner usuario = new Scanner(System.in);
+        String usuariosc = usuario.nextLine();
+        System.out.println(usuariosc);
+
+        System.out.println("Número de teléfono: ");
+        Scanner telefono = new Scanner(System.in);
+        String telefonosc = telefono.nextLine();
+        System.out.println(telefonosc);
+
+        System.out.println("Dirección: ");
+        Scanner direccion = new Scanner(System.in);
+        String direccionsc = direccion.nextLine();
+        System.out.println(direccionsc);
+
+        System.out.println("Código postal: ");
+        Scanner codigopostal = new Scanner(System.in);
+        String codigopostalsc = codigopostal.nextLine();
+        System.out.println(codigopostalsc);
+
+        System.out.println("Dirección email: ");
+        Scanner email = new Scanner(System.in);
+        String emailsc = email.nextLine();
+        System.out.println(emailsc);
+
+        /*Scanner reservas = new Scanner(System.in);
+        String reservassc = reservas.nextLine();*/
+        //System.out.println(reservassc);
     }
 }
