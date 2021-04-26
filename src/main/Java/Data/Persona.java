@@ -1,18 +1,10 @@
 package Data;
 
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class Persona  {
+public abstract class Persona  {
     private String nombre;
-    private String apellido;
-    private String  NIF;
-    private String contraseña;
-
-    public Persona() {
-    }
-
+    private String apellido1;
+    private String apellido2;
+    private Integer edad;
 
     public String getNombre() {
         return nombre;
@@ -22,58 +14,64 @@ public class Persona  {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellido1() {
+        return apellido1;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
     }
 
-    public String getNIF() {
-        return NIF;
+    public String getApellido2() {
+        return apellido2;
     }
 
-    public void setNIF(String NIF) {
-        this.NIF = NIF;
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public Integer getEdad() {
+        return edad;
     }
 
-    public void setContraseña(String contraseña) {
-        Scanner scanner = new Scanner(System.in);
-        Pattern pat = Pattern.compile("/^[^\\w]{8,20}$/");
-        System.out.print(contraseña);
-        contraseña = scanner.nextLine();
-        Matcher mat = pat.matcher(contraseña);
-        this.contraseña = contraseña;
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
 
-    public Persona(String nombre, String apellido, String NIF, String contraseña) {
+    public Persona(){
+
+    }
+
+
+    public Persona(String nombre, String apellido1, String apellido2, Integer edad) {
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.NIF = NIF;
-        this.contraseña = contraseña;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.edad = edad;
     }
 
-    public Persona(Persona persona){
+    public Persona(Persona persona) {
         this.nombre = persona.nombre;
-        this.apellido = persona.apellido;
-        this.NIF = persona.NIF;
-        this.contraseña = persona.contraseña;
-
+        this.apellido1 = persona.apellido1;
+        this.apellido2 = persona.apellido2;
+        this.edad = persona.edad;
     }
-
 
     @Override
     public String toString() {
         return "Persona{" +
                 "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", NIF=" + NIF +
-                ", contraseña='" + contraseña + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", edad=" + edad +
                 '}';
     }
+
+    //Creamos esta clase para que se soliciten todos los datos del usuario para poder darse de alta
+    public static void solicitarDatosPersona(){
+        Persona persona = null;
+        Usuario.solicitarDatosUsuario();
+    }
+
+
 }
