@@ -45,13 +45,12 @@ public class Reserva {
                 '}';
     }
 
-    public static void reservarLibro(){
+    public static void reservarLibro(String isbn){
         //El usuario nos mete los datos de su numero de telefono y email para poder reservar un libro
         System.out.println("Reserva de libro. Introduce los datos: ");
-        //Usuario.login();
-        Libro.buscarLibroISBN();
+
         //Finalmente reservamos el libro y el numero de copias de ese libro se resta en 1
-        if (Libro.libroReservado()){
+        if (Libro.libroReservado(isbn)){
             System.out.println("Se ha reservado el libro. Revisa la lista de libros para ver las copias que quedan.");
         } else {
             System.out.println("No se pudo reservar el libro porque ya no quedan copias disponibles.");
@@ -60,10 +59,12 @@ public class Reserva {
 
     public static void devolverLibro(){
         System.out.println("Devolución de libro. Introduce los datos:");
-        //Usuario.login();
-
-        Libro libro = new Libro();
         Libro.buscarLibroISBN();
+        if (Libro.libroDevuelto()){
+            System.out.println("Se ha devuelto el libro a la biblioteca.");
+        } else {
+            System.out.println("No es posible devolver el libro porque no se ha reservado primero.");
+        }
     }
 
     public static void añadirLibroCopia(){

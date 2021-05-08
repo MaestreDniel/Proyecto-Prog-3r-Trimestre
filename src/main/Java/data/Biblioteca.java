@@ -95,16 +95,7 @@ public class Biblioteca {
         System.out.println("**********Elige una Opción***********");
     }
 
-    public static void main(String[] args) {
-        Biblioteca biblioteca = new Biblioteca();
-        System.out.println("Proyecto Biblioteca. Antes de nada, vamos a crear una biblioteca.");
-        System.out.println("Escribe el nombre de la biblioteca (debe empezar en mayúscula): ");
-        Scanner scannombre = new Scanner(System.in);
-        String nombre = scannombre.nextLine();
-        biblioteca.setNombre(nombre);
-        System.out.println("Biblioteca creada");
-        System.out.println("Bienvenido a nuestra Biblioteca Virtual: " + biblioteca.getNombre() + ".");
-        mostrarMenu();
+    public static void menu(){
         Scanner menuScan = new Scanner(System.in);
         Integer menu = menuScan.nextInt();
 
@@ -160,11 +151,16 @@ public class Biblioteca {
                     Integer reservaLibro = reservas.nextInt();
 
                     if (reservaLibro == 1) {
-                        Reserva.reservarLibro();
-                        //System.out.println("Libro reservado con exito");
+                        System.out.println("Lista de libros");
+                        imprimirLibros();
+                        System.out.print("Introduce el ISBN del libro a reservar: ");
+                        Scanner libreserva = new Scanner(System.in);
+                        String isbn = libreserva.nextLine();
+                        Reserva.reservarLibro(isbn);
                     } else if (reservaLibro == 2) {
                         Reserva.devolverLibro();
-                        System.out.println("El libro ha vuelto a la Biblioteca");
+                    } else {
+                        System.out.println("No se ha marcado ninguna opción correcta. Volviendo al menú principal.");
                     }
                     mostrarMenu();
                     menu = menuScan.nextInt();
@@ -196,5 +192,18 @@ public class Biblioteca {
                     break;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Biblioteca biblioteca = new Biblioteca();
+        System.out.println("Proyecto Biblioteca. Antes de nada, vamos a crear una biblioteca.");
+        System.out.println("Escribe el nombre de la biblioteca (debe empezar en mayúscula): ");
+        Scanner scannombre = new Scanner(System.in);
+        String nombre = scannombre.nextLine();
+        biblioteca.setNombre(nombre);
+        System.out.println("Biblioteca creada");
+        System.out.println("Bienvenido a nuestra Biblioteca Virtual: " + biblioteca.getNombre() + ".");
+        mostrarMenu();
+        menu();
     }
 }
