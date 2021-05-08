@@ -1,13 +1,14 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Biblioteca {
     private String nombre;
-    private List<String> lista_libros;
+    public static List<Libro> librolist = new ArrayList<>();
+    public static List<String> listadoISBN = new ArrayList<>();
+    public static List<String> listadoTitulos = new ArrayList<>();
     private List<String> personal;
 
     public String getNombre() {
@@ -15,21 +16,41 @@ public class Biblioteca {
     }
 
     public void setNombre(String nombre) {
-        Scanner miScanner = new Scanner(System.in);
-        Pattern patron = Pattern.compile("[A-Z]{1}+[A-Z-a-z]{1,100}");
-        //System.out.print("Introduce: ");
-        nombre = miScanner.nextLine();
-        Matcher mat = patron.matcher(nombre);
-        this.nombre = nombre;
-        System.out.println(nombre);
+        int nom = 0;
+        while (nom < 1){
+            if (nombre.matches("^[A-Z].{0,99}$")){
+                this.nombre = nombre;
+                nom += 1;
+            } else {
+                System.out.println("El nombre no se ha introducido correctamente. Vuelve a intentarlo. ");
+                Scanner scannombre = new Scanner(System.in);
+                nombre = scannombre.nextLine();
+            }
+        }
     }
 
-    public List<String> getLista_libros() {
-        return lista_libros;
+    public static List<Libro> getLibrolist() {
+        return librolist;
     }
 
-    public void setLista_libros(List<String> lista_libros) {
-        this.lista_libros = lista_libros;
+    public static void setLibrolist(List<Libro> librolist) {
+        Biblioteca.librolist = librolist;
+    }
+
+    public static List<String> getListadoISBN() {
+        return listadoISBN;
+    }
+
+    public static void setListadoISBN(List<String> listadoISBN) {
+        Biblioteca.listadoISBN = listadoISBN;
+    }
+
+    public static List<String> getListadoTitulos() {
+        return listadoTitulos;
+    }
+
+    public static void setListadoTitulos(List<String> listadoTitulos) {
+        Biblioteca.listadoTitulos = listadoTitulos;
     }
 
     public List<String> getPersonal() {
@@ -40,33 +61,23 @@ public class Biblioteca {
         this.personal = personal;
     }
 
-    public Biblioteca() {
+    public Biblioteca(){
 
     }
 
-    public Biblioteca(String nombre, List<String> lista_libros, List<String> personal) {
+    public Biblioteca(String nombre, List<String> personal) {
         this.nombre = nombre;
-        this.lista_libros = lista_libros;
         this.personal = personal;
     }
 
     public Biblioteca(Biblioteca biblioteca) {
         this.nombre = biblioteca.nombre;
-        this.lista_libros = biblioteca.lista_libros;
         this.personal = biblioteca.personal;
     }
 
-    @Override
-    public String toString() {
-        return "Biblioteca{" +
-                "nombre='" + nombre + '\'' +
-                ", lista_libros=" + lista_libros +
-                ", personal=" + personal +
-                '}';
-    }
-
-    public void imprimirLibros(Libro libro) {
-        //System.out.println(Libro.getLibroList());
+    public static void imprimirLibros() {
+        System.out.println("Estos son todos los libros que tenemos registrados: ");
+        System.out.println(getLibrolist());
     }
 
     public static void mostrarMenu() {
@@ -77,13 +88,22 @@ public class Biblioteca {
         System.out.println("3. Reservas");
         System.out.println("4. Añadir Libro");
         System.out.println("5. Eliminar libro");
+        System.out.println("6. Mostrar listado de libros");
+        System.out.println("7. Añade un libro por defecto (Método auxiliar para probar cosas más rápido)");
         System.out.println("0. Salir");
         System.out.println("-------------------------------------");
         System.out.println("**********Elige una Opción***********");
     }
 
     public static void main(String[] args) {
-        System.out.println("Bienvenido a nuestra Biblioteca Virtual");
+        Biblioteca biblioteca = new Biblioteca();
+        System.out.println("Proyecto Biblioteca. Antes de nada, vamos a crear una biblioteca.");
+        System.out.println("Escribe el nombre de la biblioteca (debe empezar en mayúscula): ");
+        Scanner scannombre = new Scanner(System.in);
+        String nombre = scannombre.nextLine();
+        biblioteca.setNombre(nombre);
+        System.out.println("Biblioteca creada");
+        System.out.println("Bienvenido a nuestra Biblioteca Virtual: " + biblioteca.getNombre() + ".");
         mostrarMenu();
         Scanner menuScan = new Scanner(System.in);
         Integer menu = menuScan.nextInt();
@@ -108,8 +128,11 @@ public class Biblioteca {
                     break;
                 case 2:
                     System.out.println("Elige opción: ");
-                    System.out.println("1.Alta Biblitecario");
+                    System.out.println("1.Alta Bibliotecario");
                     System.out.println("2.Alta Usuario");
+                    System.out.println("3.Registrarse");
+                    System.out.println("4.Cambiar Contraseña");
+
                     Scanner gestiones = new Scanner(System.in);
                     Integer hacergestiones = gestiones.nextInt();
                     if (hacergestiones == 1) {
@@ -117,6 +140,12 @@ public class Biblioteca {
                     }
                     if (hacergestiones == 2) {
                         Persona.solicitarDatosPersona();
+                    }
+                    if (hacergestiones == 3) {
+                        Usuario.registrarse();
+                    }
+                    if (hacergestiones == 4) {
+                        Usuario.cambioContraseña();
                     } else {
                         System.out.println("Todavía no hago nada");
                     }
@@ -124,18 +153,16 @@ public class Biblioteca {
                     menu = menuScan.nextInt();
                     break;
                 case 3:
-                    Bibliotecario.login();
+                    Usuario.login();
                     System.out.println("1.Reservar Libro");
                     System.out.println("2.Devolver Libro");
                     Scanner reservas = new Scanner(System.in);
                     Integer reservaLibro = reservas.nextInt();
+
                     if (reservaLibro == 1) {
-                        Reserva reserva = new Reserva();
                         Reserva.reservarLibro();
-                        System.out.println("Libro reservado con exito");
-                    }
-                    if (reservaLibro == 2) {
-                        Reserva reserva = new Reserva();
+                        //System.out.println("Libro reservado con exito");
+                    } else if (reservaLibro == 2) {
                         Reserva.devolverLibro();
                         System.out.println("El libro ha vuelto a la Biblioteca");
                     }
@@ -148,8 +175,17 @@ public class Biblioteca {
                     menu = menuScan.nextInt();
                     break;
                 case 5:
-                    //Libro.eliminarLibro();
-                    System.out.println("Todavía no hago nada");
+                    Libro.eliminarLibro();
+                    mostrarMenu();
+                    menu = menuScan.nextInt();
+                    break;
+                case 6:
+                    imprimirLibros();
+                    mostrarMenu();
+                    menu = menuScan.nextInt();
+                    break;
+                case 7:
+                    Libro.ponerLibrosPorDefecto();
                     mostrarMenu();
                     menu = menuScan.nextInt();
                     break;

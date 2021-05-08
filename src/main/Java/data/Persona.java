@@ -1,8 +1,8 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public abstract class Persona {
     private String nombre;
@@ -72,7 +72,14 @@ public abstract class Persona {
 
     public static void solicitarDatosPersona(){
         Persona persona = null;
-        Usuario.solicitarDatosUsuario();
-
+        System.out.println("1.Soy un Usuario");
+        System.out.println("2.Soy un Bibliotecario");
+        Scanner datosPersona = new Scanner(System.in);
+        Integer datosPersonasc = datosPersona.nextInt();
+        if (datosPersonasc == 1) {
+            Usuario.solicitarDatosUsuario();
+        }else if (datosPersonasc == 2){
+            Usuario.solicitarDatosBibliotecario();
+        }
     }
 }

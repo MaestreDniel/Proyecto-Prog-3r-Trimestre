@@ -46,30 +46,22 @@ public class Reserva {
     }
 
     public static void reservarLibro(){
+        //El usuario nos mete los datos de su numero de telefono y email para poder reservar un libro
         System.out.println("Reserva de libro. Introduce los datos: ");
-        System.out.println("Introduce tu número de teléfono: ");
-        Usuario usuario = new Usuario();
-        Scanner telef = new Scanner(System.in);
-        Integer telefono = telef.nextInt();
-        usuario.setTelefono(telefono);
-        System.out.println("Introduce tu email: ");
-        Scanner mail = new Scanner(System.in);
-        String email = mail.nextLine();
-        usuario.setEmail(email);
-        Libro libro = new Libro();
+        //Usuario.login();
         Libro.buscarLibroISBN();
+        //Finalmente reservamos el libro y el numero de copias de ese libro se resta en 1
+        if (Libro.libroReservado()){
+            System.out.println("Se ha reservado el libro. Revisa la lista de libros para ver las copias que quedan.");
+        } else {
+            System.out.println("No se pudo reservar el libro porque ya no quedan copias disponibles.");
+        }
     }
+
     public static void devolverLibro(){
         System.out.println("Devolución de libro. Introduce los datos:");
-        System.out.println("Introduce tu número de teléfono: ");
-        Usuario usuario = new Usuario();
-        Scanner telef = new Scanner(System.in);
-        Integer telefono = telef.nextInt();
-        usuario.setTelefono(telefono);
-        System.out.println("Introduce tu email: ");
-        Scanner mail = new Scanner(System.in);
-        String email = mail.nextLine();
-        usuario.setEmail(email);
+        //Usuario.login();
+
         Libro libro = new Libro();
         Libro.buscarLibroISBN();
     }

@@ -8,11 +8,8 @@ public class Libro {
     private String titulo;
     private String autor;
     private String editorial;
-    private Integer num_copias = 1;
-    private Integer num_copias_disponibles;
-    private static List<String> librolist = new ArrayList<String>();
-    private static List<Integer> copiaslista;
-    private static List<String> listadoISBN = new ArrayList<String>();
+    private static Integer num_copias = 1;
+    private static Integer num_copias_disponibles;
 
     @Override
     public String toString() {
@@ -23,25 +20,7 @@ public class Libro {
                 ", editorial='" + editorial + '\'' +
                 ", num_copias=" + num_copias +
                 ", num_copias_disponibles=" + num_copias_disponibles +
-                ", librolist=" + librolist +
-                ", copiaslista=" + copiaslista +
                 '}';
-    }
-
-    public List<String> getLibrolist() {
-        return librolist;
-    }
-
-    public void setLibrolist(List<String> librolist) {
-        this.librolist = librolist;
-    }
-
-    public List<Integer> getCopiaslista() {
-        return copiaslista;
-    }
-
-    public void setCopiaslista(List<Integer> copiaslista) {
-        this.copiaslista = copiaslista;
     }
 
     public Libro(String ISBN, String titulo, String autor, String editorial, Integer num_copias, Integer num_copias_disponibles, List<String> librolist, List<Integer> copiaslista) {
@@ -51,8 +30,6 @@ public class Libro {
         this.editorial = editorial;
         this.num_copias = num_copias;
         this.num_copias_disponibles = num_copias_disponibles;
-        this.librolist = librolist;
-        this.copiaslista = copiaslista;
     }
 
     public String getISBN() {
@@ -151,21 +128,17 @@ public class Libro {
             libro.setEditorial(editorialS);
 
             try {
-                int contCopias;
-                int contDisponibles;
-
+                libro.num_copias = 0;
+                libro.num_copias_disponibles = 0;
                 System.out.println("¿Cuántas copias quieres realizar? Escribe '1' para tener solo el original");
                 Scanner copiassc = new Scanner(System.in);
-                contCopias = copiassc.nextInt();
-
-                for (int i = 0; i < contCopias; i++) {
-                    listadoISBN.add(ISBNS); // Necesitaba una lista aparte para poder buscar por ISBN!!!
-                    librolist.add("ISBN: " + ISBNS + " / Título: " + tituloS + " / Autor: " + autorS + " / Editorial: " + editorialS);
-                }
-                contDisponibles = contCopias;
-                /*System.out.println(contCopias);
-                System.out.println(contDisponibles);*/ // Para cuando queramos mostrar el número de copias
-
+                libro.num_copias = copiassc.nextInt();
+                Biblioteca.listadoISBN.add(ISBNS); // Necesitaba una lista aparte para poder buscar por ISBN!!!
+                Biblioteca.listadoTitulos.add(tituloS);
+                libro.num_copias_disponibles = libro.num_copias;
+                Biblioteca.librolist.add(libro);
+                libro.setNum_copias(libro.num_copias);
+                libro.setNum_copias_disponibles(libro.num_copias_disponibles);
             } catch (Exception E) {
                 System.out.println("Error al intentar añadir copias");
             }
@@ -174,31 +147,59 @@ public class Libro {
         }
         System.out.println("Libro añadido con éxito");
         System.out.println("Este es el libro (o lista de libros): ");
-        System.out.println(librolist);
+        System.out.println(Biblioteca.librolist);
     }
 
     public static void eliminarLibro() {
-        Libro libro = new Libro();
-        System.out.println("Escribe el ISBN del libro ");
-        Scanner scanner = new Scanner(System.in);
-        String isbn = scanner.nextLine();
-        if (isbn == libro.getISBN()){
-            libro.setISBN(isbn);
+        try {
+            // Si queremos eliminar el libro de la biblioteca hacemos que el usuario nos diga el ISBN del libro
+            // y acto seguido, se eliminará el libro que tenga ese ISBN
+            // Libro libro = new Libro();
+            System.out.println("Vas a eliminar un libro, para hacerlo introduce");
+            System.out.println("Escribe el ISBN");
+            Scanner ISBNsc = new Scanner(System.in);
+            String ISBNS = ISBNsc.nextLine();
 
-        }else {
-            System.out.println("ISBN erroneo");
+            for (int i = 0; i < Biblioteca.listadoISBN.size(); i++) { // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
+                if (ISBNS.equals(Biblioteca.listadoISBN.get(i))) {
+                    String eliminar;
+                    System.out.println("Este es el libro que estás a punto de eliminar: " + Biblioteca.librolist.get(i));
+                    System.out.println("Confirma si quieres eliminarlo: s/n");
+                    Scanner eliminacion = new Scanner(System.in);
+                    eliminar = eliminacion.nextLine();
+                    if (eliminar.equals("s")){
+                        Biblioteca.librolist.remove(i);
+
+                    }
+                    else {
+                        System.out.println("El libro no será eliminado");
+                    }
+                    break;
+                } else if (!ISBNS.equals(Biblioteca.listadoISBN.get(i))){
+                    i=i;
+                } else {
+                    System.out.println("No se encontró ningún libro con el ISBN indicado"); // Si no encuentra el ISBN que se pide
+                }
+            }
+
+            System.out.println("Libro eliminado");
+
+        } catch (Exception E) {
+            System.out.println("Error al eliminar libro");
         }
+
     }
+
     public static void buscarLibroISBN(){
         System.out.println("Escribe el ISBN");
         Scanner scanner = new Scanner(System.in);
         String busquedaLibroISBN = scanner.nextLine();
-        for (int i = 0; i < listadoISBN.size(); i++) { // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-            if (busquedaLibroISBN.equals(listadoISBN.get(i))) {
-                System.out.println("El libro está en la posición " + listadoISBN.indexOf(busquedaLibroISBN));
-                System.out.println("Información del libro que buscabas: " + librolist.get(i));
+        for (int i = 0; i < Biblioteca.listadoISBN.size(); i++) { // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
+            if (busquedaLibroISBN.equals(Biblioteca.listadoISBN.get(i))) {
+                System.out.println("El libro está en la posición " + Biblioteca.listadoISBN.indexOf(busquedaLibroISBN));
+                System.out.println("Información del libro que buscabas: " + Biblioteca.librolist.get(i));
                 break;
-            } else if (!busquedaLibroISBN.equals(listadoISBN.get(i))){
+            } else if (!busquedaLibroISBN.equals(Biblioteca.listadoISBN.get(i))){
                 i=i;
             } else {
                 System.out.println("-1"); // Si no encuentra el ISBN que se pide
@@ -206,14 +207,94 @@ public class Libro {
         }
     }
 
-    public static void buscarLibroTitulo() {
+    public static void buscarLibroTitulo() { // Recorrer el listado de títulos para encontrar los libros que coincidan con lo que solicita el usuario
         System.out.println("Escribe el titulo");
         Scanner scanner2 = new Scanner(System.in);
         String busquedaLibroTitulo = scanner2.nextLine();
-        if (busquedaLibroTitulo.equals(busquedaLibroTitulo)) { // Revisar libroList.get(1)
-            System.out.println("Mostrar libro "); // + Arrays.asList(libroList).indexOf(libro.ISBN);
-        } else {
-            System.out.println("-1");
+        for (int i = 0; i < Biblioteca.listadoTitulos.size(); i++) {
+            if (busquedaLibroTitulo.equals(Biblioteca.listadoTitulos.get(i))) {
+                System.out.println("Información del libro que buscabas: " + Biblioteca.librolist.get(i));
+            } else if (!busquedaLibroTitulo.equals(Biblioteca.listadoTitulos.get(i))){
+                i=i;
+            }
+            else {
+                System.out.println("No se encontró ningún libro con el título indicado");
+            }
         }
     }
+
+    public static void ponerLibrosPorDefecto(){
+        Libro libro = new Libro("1234", "Quijote", "Cervantes", "Edad media",
+                3, 3);
+        Biblioteca.listadoISBN.add("1234");
+        Biblioteca.listadoTitulos.add("Quijote");
+        Biblioteca.librolist.add(libro);
+        System.out.println("Libro añadido con éxito");
+        System.out.println("Este es el libro (o lista de libros): ");
+        System.out.println(Biblioteca.librolist);
+    }
+
+    public static boolean libroReservado(){
+        boolean reservado = true;
+        if (num_copias_disponibles > 0) {
+            num_copias_disponibles--;
+        } else {
+            reservado = false;
+        }
+        return reservado;
+    }
+
+    //public static void libroReservado(){
+        //buscarLibroISBN();
+
+        /*try {
+            Libro libro = new Libro();
+
+            System.out.println("Escribe el ISBN");
+            Scanner scanner = new Scanner(System.in);
+            String busquedaLibroISBN = scanner.nextLine();
+            for (int i = 0; i < listadoISBN.size(); i++) { // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
+                if (busquedaLibroISBN.equals(listadoISBN.get(i))) {
+                    libro.getNum_copias();
+                    libro.setNum_copias_disponibles(libro.num_copias_disponibles = libro.num_copias_disponibles - 1);
+                    System.out.println("El libro está en la posición " + listadoISBN.indexOf(busquedaLibroISBN));
+                    System.out.println("Información del libro que buscabas: " + librolist.get(i));
+
+                    break;
+                } else if (!busquedaLibroISBN.equals(listadoISBN.get(i))) {
+                    i = i;
+                } else {
+                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
+                }
+            }
+        }    catch (Exception e){
+            System.out.println("Error");
+        }*/
+        //setNum_copias_disponibles(num_copias_disponibles-1);
+    //}
+
+    public static void libroDevuelto(){
+        Libro libro = new Libro();
+        System.out.println("Escribe el ISBN");
+        Scanner ISBNsc = new Scanner(System.in);
+        String ISBNS = ISBNsc.nextLine();
+        libro.setISBN(ISBNS);
+
+        System.out.println("Escribe el titulo");
+        Scanner titulosc = new Scanner(System.in);
+        String tituloS = titulosc.nextLine();
+        libro.setTitulo(tituloS);
+
+        System.out.println("Escribe el autor");
+        Scanner autorsc = new Scanner(System.in);
+        String autorS = autorsc.nextLine();
+        libro.setAutor(autorS);
+
+        System.out.println("Escribe la editorial");
+        Scanner editorialsc = new Scanner(System.in);
+        String editorialS = editorialsc.nextLine();
+        libro.setEditorial(editorialS);
+    }
 }
+
+

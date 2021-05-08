@@ -70,17 +70,5 @@ public class Bibliotecario extends Persona {
                 '}';
     }
 
-    public static void login(){
-        Bibliotecario bibliotecario = new Bibliotecario();
-        System.out.println("---------Login---------");
-        System.out.println("Introduce el NIF");
-        Scanner nif = new Scanner(System.in);
-        String setnif = nif.nextLine();
-        bibliotecario.setNIF(setnif);
-        System.out.println("Introduce contraseña");
-        Scanner pass = new Scanner(System.in);
-        String password = pass.nextLine();
-        bibliotecario.setNIF(password);
-    }
 
 }
