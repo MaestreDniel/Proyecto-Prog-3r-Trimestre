@@ -1,10 +1,14 @@
-package Data;
+package data;
+
+import java.util.Scanner;
 
 public abstract class Persona  {
     private String nombre;
     private String apellido1;
     private String apellido2;
     private Integer edad;
+
+
 
     public String getNombre() {
         return nombre;
@@ -70,7 +74,15 @@ public abstract class Persona  {
     //Creamos esta clase para que se soliciten todos los datos del usuario para poder darse de alta
     public static void solicitarDatosPersona(){
         Persona persona = null;
-        Usuario.solicitarDatosUsuario();
+        System.out.println("1.Soy un Usuario");
+        System.out.println("2.Soy un Bibliotecario");
+        Scanner datosPersona = new Scanner(System.in);
+        Integer datosPersonasc = datosPersona.nextInt();
+        if (datosPersonasc ==1) {
+            Usuario.solicitarDatosUsuario();
+        }else if (datosPersonasc ==2){
+            Usuario.solicitarDatosBibliotecario();
+        }
     }
 
 
