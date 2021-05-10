@@ -17,8 +17,8 @@ public class Biblioteca {
 
     public void setNombre(String nombre) {
         int nom = 0;
-        while (nom < 1){
-            if (nombre.matches("^[A-Z].{0,99}$")){
+        while (nom < 1) {
+            if (nombre.matches("^[A-Z].{0,99}$")) {
                 this.nombre = nombre;
                 nom += 1;
             } else {
@@ -61,7 +61,7 @@ public class Biblioteca {
         this.personal = personal;
     }
 
-    public Biblioteca(){
+    public Biblioteca() {
 
     }
 
@@ -95,7 +95,7 @@ public class Biblioteca {
         System.out.println("**********Elige una Opción***********");
     }
 
-    public static void menu(){
+    public void menu() {
         Scanner menuScan = new Scanner(System.in);
         Integer menu = menuScan.nextInt();
 
@@ -119,23 +119,19 @@ public class Biblioteca {
                     break;
                 case 2:
                     System.out.println("Elige opción: ");
-                    System.out.println("1.Alta Bibliotecario");
-                    System.out.println("2.Alta Usuario");
-                    System.out.println("3.Registrarse");
-                    System.out.println("4.Cambiar Contraseña");
+                    System.out.println("1.Darse de Alta");
+                    System.out.println("2.Registrarse");
+                    System.out.println("3.Cambiar Contraseña");
 
                     Scanner gestiones = new Scanner(System.in);
                     Integer hacergestiones = gestiones.nextInt();
                     if (hacergestiones == 1) {
-                        System.out.println("(Añadir método)");
-                    }
-                    if (hacergestiones == 2) {
                         Persona.solicitarDatosPersona();
                     }
-                    if (hacergestiones == 3) {
+                    if (hacergestiones == 2) {
                         Usuario.registrarse();
                     }
-                    if (hacergestiones == 4) {
+                    if (hacergestiones == 3) {
                         Usuario.cambioContraseña();
                     } else {
                         System.out.println("Todavía no hago nada");
@@ -158,7 +154,10 @@ public class Biblioteca {
                         String isbn = libreserva.nextLine();
                         Reserva.reservarLibro(isbn);
                     } else if (reservaLibro == 2) {
-                        Reserva.devolverLibro();
+                        System.out.print("Introduce el ISBN del libro a devolver: ");
+                        Scanner libreserva = new Scanner(System.in);
+                        String isbn = libreserva.nextLine();
+                        Reserva.devolverLibro(isbn);
                     } else {
                         System.out.println("No se ha marcado ninguna opción correcta. Volviendo al menú principal.");
                     }
@@ -204,6 +203,6 @@ public class Biblioteca {
         System.out.println("Biblioteca creada");
         System.out.println("Bienvenido a nuestra Biblioteca Virtual: " + biblioteca.getNombre() + ".");
         mostrarMenu();
-        menu();
+        biblioteca.menu();
     }
 }

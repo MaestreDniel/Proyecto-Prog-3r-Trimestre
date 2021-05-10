@@ -16,6 +16,7 @@ public class Usuario extends Persona {
     private static List<String> listaAltaUsuarios = new ArrayList<String>();
     private static List<String> listaAltaBibliotecarios = new ArrayList<String>();
 
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -35,13 +36,6 @@ public class Usuario extends Persona {
         Usuario.loginUsuario = loginUsuario;
     }
 
-    /*public static List<String> getLoginBibliotecario() {
-        return loginBibliotecario;
-    }
-
-    public static void setLoginBibliotecario(List<String> loginBibliotecario) {
-        Usuario.loginBibliotecario = loginBibliotecario;
-    }*/
 
     public String getTelefono() {
         return telefono;
@@ -138,6 +132,7 @@ public class Usuario extends Persona {
         System.out.println(telefonosc);
         listaAltaUsuarios.add(telefonosc);
 
+
         System.out.println("Dirección: ");
         Scanner direccion = new Scanner(System.in);
         String direccionsc = direccion.nextLine();
@@ -155,27 +150,12 @@ public class Usuario extends Persona {
         String emailsc = email.nextLine();
         System.out.println(emailsc);
         listaAltaUsuarios.add(emailsc);
-
-        Scanner reservas = new Scanner(System.in);
-        String reservassc = reservas.nextLine();
-        System.out.println(reservassc);
-        listaAltaUsuarios.add(reservassc);
-
-        Bibliotecario bibliotecario = new Bibliotecario();
-        System.out.println("Introduce el NIF");
-        Scanner nif = new Scanner(System.in);
-        String setnif = nif.nextLine();
-        bibliotecario.setNIF(setnif);
-        loginUsuario.add(setnif);
-
-        System.out.println("Introduce contraseña");
-        Scanner pass = new Scanner(System.in);
-        String password = pass.nextLine();
-        bibliotecario.setNIF(password);
-        loginUsuario.add(password);
     }
 
-    public static void solicitarDatosBibliotecario(){
+
+    //Aqui el usuario se registrará introduciendo su nif y la contraseña
+
+    public static void solicitarDatosBibliotecario() {
         System.out.println("Escribe los datos: ");
         System.out.println("Nombre de usuario: ");
         Scanner usuario = new Scanner(System.in);
@@ -207,13 +187,8 @@ public class Usuario extends Persona {
         System.out.println(emailsc);
         listaAltaBibliotecarios.add(emailsc);
 
-        Scanner reservas = new Scanner(System.in);
-        String reservassc = reservas.nextLine();
-        System.out.println(reservassc);
-        listaAltaBibliotecarios.add(reservassc);
     }
 
-    //Aqui el usuario se registrará introduciendo su nif y la contraseña
     public static void registrarse() {
         System.out.println("1.Registrarse como Usuario");
         System.out.println("2.Registrarse como Bibliotecario");
@@ -289,7 +264,7 @@ public class Usuario extends Persona {
             for (int i = 0; i < loginBibliotecario.size(); i++) {
                 // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
                 if (password.equals(loginBibliotecario.get(i))) {
-                    System.out.println("Correcto " + loginBibliotecario.indexOf(password));
+                    System.out.println("Correcto" + loginBibliotecario.indexOf(password));
                     break;
                 } else if (!password.equals(loginBibliotecario.get(i))) {
                     i = i;
@@ -330,7 +305,6 @@ public class Usuario extends Persona {
             }
         }
     }
-
 
     public static void cambioContraseña() {
         System.out.println("1.Cambio como Bibliotecario");
@@ -384,6 +358,9 @@ public class Usuario extends Persona {
                 bibliotecario.setNIF(password);
                 loginBibliotecario.add(password);
 
+                System.out.println("Contraseña cambiada con exito" +
+                        "La nueva contraseña es" + password);
+
             }
         } else if (cambioCsc == 2) {
 
@@ -433,10 +410,10 @@ public class Usuario extends Persona {
             usuario.setTelefono(telsc);
             loginUsuario.add(telsc);
 
+            System.out.println("Numero cambiado con exito" +
+                    " el nuevo numero es" + telsc);
+
         }
     }
 }
-
-
-
 

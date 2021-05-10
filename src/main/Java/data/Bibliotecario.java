@@ -31,7 +31,7 @@ public class Bibliotecario extends Persona {
         this.contraseña = contraseña;
     }
 
-    public Bibliotecario(){
+    public Bibliotecario() {
 
     }
 

@@ -42,7 +42,7 @@ public abstract class Persona {
         this.edad = edad;
     }
 
-    public Persona(){
+    public Persona() {
 
     }
 
@@ -70,7 +70,7 @@ public abstract class Persona {
                 '}';
     }
 
-    public static void solicitarDatosPersona(){
+    public static void solicitarDatosPersona() {
         Persona persona = null;
         System.out.println("1.Soy un Usuario");
         System.out.println("2.Soy un Bibliotecario");
@@ -78,7 +78,7 @@ public abstract class Persona {
         Integer datosPersonasc = datosPersona.nextInt();
         if (datosPersonasc == 1) {
             Usuario.solicitarDatosUsuario();
-        }else if (datosPersonasc == 2){
+        } else if (datosPersonasc == 2) {
             Usuario.solicitarDatosBibliotecario();
         }
     }
