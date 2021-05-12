@@ -117,7 +117,7 @@ public class Usuario extends Persona {
         this.reservas = usuario.reservas;
     }
 
-    //Aqui el usuario rellenara todos sus datos personales
+    //Aqui el Usuario rellenara todos sus datos personales
     public static void solicitarDatosUsuario() {
         System.out.println("Escribe los datos: ");
         System.out.println("Nombre de usuario: ");
@@ -153,7 +153,7 @@ public class Usuario extends Persona {
     }
 
 
-    //Aqui el usuario se registrará introduciendo su nif y la contraseña
+    //Aqui el Bilbiotecario rellenara todos sus datos personales
 
     public static void solicitarDatosBibliotecario() {
         System.out.println("Escribe los datos: ");
@@ -189,6 +189,7 @@ public class Usuario extends Persona {
 
     }
 
+    //Este metodo se crea para que se puedan registrar en la biblioteca tanto como Usario como Bibliotecario
     public static void registrarse() {
         System.out.println("1.Registrarse como Usuario");
         System.out.println("2.Registrarse como Bibliotecario");
@@ -233,7 +234,7 @@ public class Usuario extends Persona {
     }
 
 
-    //Si el usuario ya esta registrado pues solo tendra que iniciar sesion
+    //Si el Usuario/Bibliotecario ya esta registrado pues solo tendra que iniciar sesion
     public static void login() {
 
         System.out.println("1.Login como Bibliotecario");
@@ -306,6 +307,7 @@ public class Usuario extends Persona {
         }
     }
 
+    //Si deciden cambair la contraseña pues podran hacerlo pero previamente haciendo login
     public static void cambioContraseña() {
         System.out.println("1.Cambio como Bibliotecario");
         System.out.println("2.Cambio como Usuario");
@@ -345,6 +347,7 @@ public class Usuario extends Persona {
                     System.out.println("-1"); // Si no encuentra el ISBN que se pide
                 }
 
+                //Una vez hecho el login tendran que introducir la antigua contraseña y la nueva
 
                 System.out.println("Introduce la antigua contraseña");
                 pass = new Scanner(System.in);
@@ -362,6 +365,7 @@ public class Usuario extends Persona {
                         "La nueva contraseña es" + password);
 
             }
+            //En el caso de los usuarios como no tienen contraseña lo que pueden cambiar es el teléfono que lo usan como contraseña
         } else if (cambioCsc == 2) {
 
             System.out.println("Introduce el telefono");
@@ -397,6 +401,7 @@ public class Usuario extends Persona {
                 }
             }
 
+            //Para realizar el cambio tendran que escribir la antigua y acto seguido la nueva
 
             System.out.println("Introduce el antigua numero");
             tel = new Scanner(System.in);

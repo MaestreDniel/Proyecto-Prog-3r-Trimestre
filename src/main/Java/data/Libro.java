@@ -158,8 +158,11 @@ public class Libro {
             Scanner ISBNsc = new Scanner(System.in);
             String ISBNS = ISBNsc.nextLine();
 
-            for (int i = 0; i < Biblioteca.listadoISBN.size(); i++) { // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
+            //Creamos un for para que recorra la lista donde estan almacenados todos los ISBN's("listadoISBN),
+            for (int i = 0; i < Biblioteca.listadoISBN.size(); i++) {
+                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
                 if (ISBNS.equals(Biblioteca.listadoISBN.get(i))) {
+                    //Si el ISBN introducido es igual a una posición de la lista elimina todo el libro
                     String eliminar;
                     System.out.println("Este es el libro que estás a punto de eliminar: " + Biblioteca.librolist.get(i));
                     System.out.println("Confirma si quieres eliminarlo: s/n");
@@ -169,7 +172,7 @@ public class Libro {
                         Biblioteca.librolist.remove(i);
 
                     }
-                    else {
+                     else if(eliminar.equals("n")) {
                         System.out.println("El libro no será eliminado");
                     }
                     break;
@@ -192,36 +195,38 @@ public class Libro {
         System.out.println("Escribe el ISBN");
         Scanner scanner = new Scanner(System.in);
         String busquedaLibroISBN = scanner.nextLine();
-        for (int i = 0; i < Biblioteca.listadoISBN.size(); i++) { // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
+        for (int i = 0; i < Biblioteca.listadoISBN.size(); i++) {
+            // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
             if (busquedaLibroISBN.equals(Biblioteca.listadoISBN.get(i))) {
+                //Si algun ISBN del listado de ISBN's es igual al introducido por el usuario en ese caso lo muestra por pantalla
                 System.out.println("El libro está en la posición " + Biblioteca.listadoISBN.indexOf(busquedaLibroISBN));
                 System.out.println("Información del libro que buscabas: " + Biblioteca.librolist.get(i));
                 break;
             } else if (!busquedaLibroISBN.equals(Biblioteca.listadoISBN.get(i))){
-                i=i;
-            } else {
-                System.out.println("-1"); // Si no encuentra el ISBN que se pide
+                System.out.println(-1); // Si no encuentra el ISBN que se pide
+
             }
         }
     }
 
-    public static void buscarLibroTitulo() { // Recorrer el listado de títulos para encontrar los libros que coincidan con lo que solicita el usuario
+    public static void buscarLibroTitulo() {
         System.out.println("Escribe el titulo");
         Scanner scanner2 = new Scanner(System.in);
         String busquedaLibroTitulo = scanner2.nextLine();
+        // Recorrer el listado de títulos para encontrar los libros que coincidan con lo que solicita el usuario
         for (int i = 0; i < Biblioteca.listadoTitulos.size(); i++) {
             if (busquedaLibroTitulo.equals(Biblioteca.listadoTitulos.get(i))) {
+                //Si algun Título del listado de Titulos es igual al introducido por el usuario en ese caso lo muestra por pantalla
                 System.out.println("Información del libro que buscabas: " + Biblioteca.librolist.get(i));
             } else if (!busquedaLibroTitulo.equals(Biblioteca.listadoTitulos.get(i))){
-                i=i;
-            }
-            else {
-                System.out.println("No se encontró ningún libro con el título indicado");
+                System.out.println(-1);
+
             }
         }
     }
 
     public static void ponerLibrosPorDefecto(){
+        //Para que la ejecución del programa sea mas ágil creamos un libro por defecto
         Libro libro = new Libro("1234", "Quijote", "Cervantes", "Edad media",
                 3, 3);
         Biblioteca.listadoISBN.add("1234");
@@ -233,6 +238,7 @@ public class Libro {
     }
 
     public static boolean libroReservado(String isbn){
+        //A la hora de reservar un libro recorre la lista de libros para encontrar ese libro que quiere reservar a partir del ISBN
         boolean reservado = true;
         Libro libro = null;
         for (int i = 0; i < Biblioteca.librolist.size(); i++) {
@@ -242,7 +248,7 @@ public class Libro {
             }
 
         }
-
+        //Cuando el libro está reservado el contador de copias baja en 1 siempre y cuando no sea =0
         if (libro.getNum_copias_disponibles() > 0) {
             libro.setNum_copias_disponibles(libro.getNum_copias_disponibles()-1);
         } else {
@@ -252,6 +258,9 @@ public class Libro {
     }
 
     public static boolean libroDevuelto(String isbn){
+        //A la hora de devolver un libro recorre la lista de libros para encontrar ese libro que quiere devolver a partir del ISBN
+        //Y asi vuelve a estar en su sitio
+
         boolean devuelto = true;
         Libro libro = null;
         for (int i = 0; i < Biblioteca.librolist.size(); i++) {
@@ -261,7 +270,8 @@ public class Libro {
             }
 
         }
-        if (libro.getNum_copias_disponibles() > 0) {
+        //Cuando el libro está devuelto el contador de copias sube en 1
+        if (libro.getNum_copias_disponibles() >= 0) {
             libro.setNum_copias_disponibles(libro.getNum_copias_disponibles()+1);
         }
         else {
