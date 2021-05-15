@@ -1,7 +1,5 @@
 package data;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public abstract class Persona {
@@ -46,6 +44,7 @@ public abstract class Persona {
 
     }
 
+
     public Persona(String nombre, String apellido1, String apellido2, Integer edad) {
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -70,6 +69,7 @@ public abstract class Persona {
                 '}';
     }
 
+    //Creamos esta clase para que se soliciten todos los datos del usuario para poder darse de alta
     public static void solicitarDatosPersona() {
         Persona persona = null;
         System.out.println("1.Soy un Usuario");
@@ -82,4 +82,6 @@ public abstract class Persona {
             Usuario.solicitarDatosBibliotecario();
         }
     }
+
+
 }

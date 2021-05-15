@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Reserva {
     private Libro libro;
-    private Date fecha_reserva;
+    private Date fechaReserva;
 
     public Libro getLibro() {
         return libro;
@@ -15,41 +15,38 @@ public class Reserva {
         this.libro = libro;
     }
 
-    public Date getFecha_reserva() {
-        return fecha_reserva;
+    public Date getFechaReserva() {
+        return fechaReserva;
     }
 
-    public void setFecha_reserva(Date fecha_reserva) {
-        this.fecha_reserva = fecha_reserva;
+    public void setFechaReserva(Date fechaReserva) {
+        this.fechaReserva = fechaReserva;
     }
 
     public Reserva() {
 
     }
 
-    public Reserva(Libro libro, Date fecha_reserva) {
+    public Reserva(Libro libro, Date fechaReserva) {
         this.libro = libro;
-        this.fecha_reserva = fecha_reserva;
+        this.fechaReserva = fechaReserva;
     }
 
     public Reserva(Reserva reserva) {
         this.libro = reserva.libro;
-        this.fecha_reserva = reserva.fecha_reserva;
+        this.fechaReserva = reserva.fechaReserva;
     }
 
     @Override
     public String toString() {
         return "Reserva{" +
                 "libro=" + libro +
-                ", fecha_reserva=" + fecha_reserva +
+                ", fechaReserva=" + fechaReserva +
                 '}';
     }
 
     public static void reservarLibro(String isbn) {
-        //El usuario nos mete los datos de su numero de telefono y email para poder reservar un libro
-        System.out.println("Reserva de libro. Introduce los datos: ");
-
-        //Finalmente reservamos el libro y el numero de copias de ese libro se resta en 1
+        // El usuario nos mete sus datos para poder reservar un libro y se llama al método para realizar la reserva
         if (Libro.libroReservado(isbn)) {
             System.out.println("Se ha reservado el libro. Revisa la lista de libros para ver las copias que quedan.");
         } else {
@@ -58,17 +55,30 @@ public class Reserva {
     }
 
     public static void devolverLibro(String isbn) {
-        System.out.println("Devolución de libro. Introduce los datos:");
-        Libro.buscarLibroISBN();
+        // Funciona de manera análoga a reservarLibro
         if (Libro.libroDevuelto(isbn)) {
-            System.out.println("Se ha devuelto el libro a la biblioteca.");
+            System.out.println("Se ha devuelto el libro a la biblioteca, así que hay otra copia disponible del mismo.");
         } else {
             System.out.println("No es posible devolver el libro porque no se ha reservado primero.");
         }
     }
 
-    public static void añadirLibroCopia() {
-        Libro libro = new Libro();
-
+    public static void añadirLibroCopia(String isbn) {
+        Libro libro = null;
+        for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
+            if (Biblioteca.getLibrolist().get(i).getISBN().equals(isbn)) {
+                libro = Biblioteca.getLibrolist().get(i);
+                System.out.println("Cuantas copias quieres añadir?");
+                Scanner añadirCopiassc = new Scanner(System.in);
+                Integer añadirCopias = añadirCopiassc.nextInt();
+                libro.setnCopiasDisponibles(libro.getnCopiasDisponibles() + añadirCopias);
+                libro.setNCopias(libro.getNCopias() + añadirCopias);
+                System.out.println("Copias añadidas. Así queda el libro: " + libro);
+            } else if (!Biblioteca.getLibrolist().get(i).getISBN().equals(isbn)){
+                i=i;
+            } else {
+                System.out.println("No hemos podido encontrar ese libro");
+            }
+        }
     }
 }
