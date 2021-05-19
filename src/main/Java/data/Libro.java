@@ -309,6 +309,7 @@ public class Libro {
         assert libro != null;
         if (libro.getnCopiasDisponibles() < libro.getNCopias()) {
             libro.setnCopiasDisponibles(libro.getnCopiasDisponibles() + 1);
+            //Usuario usuario = Usuario.asignarUsuario();
         } else {
             devuelto = false;
         }

@@ -87,27 +87,31 @@ public class Bibliotecario extends Persona {
     //Aqui el Bibliotecario rellenará todos sus datos personales
 
     public static void solicitarDatosPersona(String nombre, String apellido1, String apellido2, Integer edad) {
-        Bibliotecario bibliotecario = new Bibliotecario();
-        bibliotecario.setNombre(nombre);
-        bibliotecario.setApellido1(apellido1);
-        bibliotecario.setApellido2(apellido2);
-        bibliotecario.setEdad(edad);
+        try {
+            Bibliotecario bibliotecario = new Bibliotecario();
+            bibliotecario.setNombre(nombre);
+            bibliotecario.setApellido1(apellido1);
+            bibliotecario.setApellido2(apellido2);
+            bibliotecario.setEdad(edad);
 
-        System.out.print("Introduce tu puesto de trabajo: ");
-        Scanner datos = new Scanner(System.in);
-        String trabajoSc = datos.nextLine();
-        bibliotecario.setTrabajo(trabajoSc);
+            System.out.print("Introduce tu puesto de trabajo: ");
+            Scanner datos = new Scanner(System.in);
+            String trabajoSc = datos.nextLine();
+            bibliotecario.setTrabajo(trabajoSc);
 
-        System.out.print("Introduce tu nif: ");
-        String NIFSc = datos.nextLine();
-        bibliotecario.setNIF(NIFSc);
+            System.out.print("Introduce tu nif: ");
+            String NIFSc = datos.nextLine();
+            bibliotecario.setNIF(NIFSc);
 
-        System.out.print("Introduce tu contraseña: ");
-        String contraseñaSc = datos.nextLine();
-        bibliotecario.setContraseña(contraseñaSc);
+            System.out.print("Introduce tu contraseña: ");
+            String contraseñaSc = datos.nextLine();
+            bibliotecario.setContraseña(contraseñaSc);
 
-        Biblioteca.getPersonas().add(bibliotecario);
-        System.out.println("Nuevo bibliotecario añadido. Revisa la lista de bibliotecarios inscritos.");
+            Biblioteca.getPersonas().add(bibliotecario);
+            System.out.println("Nuevo bibliotecario añadido. Revisa la lista de bibliotecarios inscritos.");
+        } catch (Exception E) {
+            System.out.println("Error al introducir algún dato.");
+        }
     }
 
     public static void crearBibliotecariosPorDefecto() {

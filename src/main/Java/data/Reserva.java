@@ -48,19 +48,28 @@ public class Reserva {
 
     public static void reservarLibro(String isbn) {
         // El usuario nos mete sus datos para poder reservar un libro y se llama al método para realizar la reserva
-        if (Libro.libroReservado(isbn)) {
-            System.out.println("Se ha reservado el libro. Revisa la lista de libros para ver las copias que quedan.");
-        } else {
-            System.out.println("No se pudo reservar el libro porque ya no quedan copias disponibles.");
+        try {
+            if (Libro.libroReservado(isbn)) {
+                System.out.println("Se ha reservado el libro. Revisa la lista de libros para ver las copias que quedan.");
+            } else {
+                System.out.println("No se pudo reservar el libro porque ya no quedan copias disponibles.");
+            }
+        } catch (Exception E) {
+            System.out.println("Error al intentar reservar libro. Es posible que no existiera ese libro.");
         }
+
     }
 
     public static void devolverLibro(String isbn) {
         // Funciona de manera análoga a reservarLibro
-        if (Libro.libroDevuelto(isbn)) {
-            System.out.println("Se ha devuelto el libro a la biblioteca, así que hay otra copia disponible del mismo.");
-        } else {
-            System.out.println("No es posible devolver el libro porque no se ha reservado primero.");
+        try {
+            if (Libro.libroDevuelto(isbn)) {
+                System.out.println("Se ha devuelto el libro a la biblioteca, así que hay otra copia disponible del mismo.");
+            } else {
+                System.out.println("No es posible devolver el libro porque no se ha reservado primero.");
+            }
+        } catch (Exception E) {
+            System.out.println("Error al intentar devolver libro. Es posible que no existiera ese libro.");
         }
     }
 

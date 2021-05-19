@@ -97,32 +97,37 @@ public class Usuario extends Persona {
 
     //Aqui el Usuario rellenara todos sus datos personales
     public static void solicitarDatosPersona(String nombre, String apellido1, String apellido2, Integer edad) {
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setApellido1(apellido1);
-        usuario.setApellido2(apellido2);
-        usuario.setEdad(edad);
+        try {
+            Usuario usuario = new Usuario();
+            usuario.setNombre(nombre);
+            usuario.setApellido1(apellido1);
+            usuario.setApellido2(apellido2);
+            usuario.setEdad(edad);
 
-        System.out.print("Número de teléfono: ");
-        Scanner datos = new Scanner(System.in);
-        String telefonosc = datos.nextLine();
-        usuario.setTelefono(telefonosc);
+            System.out.print("Número de teléfono: ");
+            Scanner datos = new Scanner(System.in);
+            String telefonosc = datos.nextLine();
+            usuario.setTelefono(telefonosc);
 
-        System.out.print("Dirección: ");
-        String direccionsc = datos.nextLine();
-        usuario.setDireccion(direccionsc);
+            System.out.print("Dirección: ");
+            String direccionsc = datos.nextLine();
+            usuario.setDireccion(direccionsc);
 
-        System.out.print("Código postal: ");
-        Integer codigopostalsc = datos.nextInt();
-        usuario.setCodigo_postal(codigopostalsc);
+            System.out.print("Código postal: ");
+            Integer codigopostalsc = datos.nextInt();
+            usuario.setCodigo_postal(codigopostalsc);
 
-        System.out.print("Introduce tu correo: ");
-        Scanner mail = new Scanner(System.in);
-        String emailsc = mail.nextLine();
-        usuario.setCorreo(emailsc);
+            System.out.print("Introduce tu correo: ");
+            Scanner mail = new Scanner(System.in);
+            String emailsc = mail.nextLine();
+            usuario.setCorreo(emailsc);
 
-        Biblioteca.getPersonas().add(usuario);
-        System.out.println("Nuevo usuario añadido. Revisa la lista de usuarios inscritos.");
+            Biblioteca.getPersonas().add(usuario);
+            System.out.println("Nuevo usuario añadido. Revisa la lista de usuarios inscritos.");
+
+        } catch (Exception E) {
+            System.out.println("Error al introducir algún dato.");
+        }
     }
 
     public static void crearUsuariosPorDefecto() {

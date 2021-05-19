@@ -120,6 +120,8 @@ public class Biblioteca {
                     break;
 
                 case 2:
+
+                    //if (Biblioteca.getPersonas().isEmpty())
                     System.out.println("Elige opción: ");
                     System.out.println("1. Dar de Alta");
                     System.out.println("2. Cambiar Contraseña");
@@ -185,10 +187,22 @@ public class Biblioteca {
                                 }
 
                             } else if (reservaLibro == 2) {
-                                System.out.print("Introduce el ISBN del libro a devolver: ");
-                                Scanner libreserva = new Scanner(System.in);
-                                String isbn = libreserva.nextLine();
-                                Reserva.devolverLibro(isbn);
+                                System.out.println("Para devolver el libro, el usuario deberá introducir: ");
+                                System.out.print("Número de teléfono: ");
+                                Scanner user = new Scanner(System.in);
+                                String telefono = user.nextLine();
+                                System.out.print("Dirección de correo electrónico: ");
+                                String correo = user.nextLine();
+                                if (Usuario.loginUsuario(telefono, correo)) {
+                                    System.out.println("Lista de libros");
+                                    imprimirLibros();
+                                    System.out.print("Introduce el ISBN del libro a devolver: ");
+                                    Scanner libreserva = new Scanner(System.in);
+                                    String isbn = libreserva.nextLine();
+                                    Reserva.devolverLibro(isbn);
+                                } else {
+                                    System.out.println("Intenta hacer login de nuevo");
+                                }
                             }
                         } else {
                             System.out.println("Es necesario que un bibliotecario haga login primero. Volviendo al menú principal");
