@@ -44,7 +44,6 @@ public abstract class Persona {
 
     }
 
-
     public Persona(String nombre, String apellido1, String apellido2, Integer edad) {
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -71,17 +70,31 @@ public abstract class Persona {
 
     //Creamos esta clase para que se soliciten todos los datos del usuario para poder darse de alta
     public static void solicitarDatosPersona() {
-        Persona persona = null;
-        System.out.println("1.Soy un Usuario");
-        System.out.println("2.Soy un Bibliotecario");
-        Scanner datosPersona = new Scanner(System.in);
-        Integer datosPersonasc = datosPersona.nextInt();
+
+        System.out.println("1. Alta a un Usuario");
+        System.out.println("2. Alta a un Bibliotecario");
+        Scanner dato = new Scanner(System.in);
+        Integer datosPersonasc = dato.nextInt();
+
+        System.out.println("Escribe los datos: ");
+        System.out.print("Introduce tu nombre: ");
+        Scanner datos = new Scanner(System.in);
+        String nombre = datos.nextLine();
+
+        System.out.print("1er apellido: ");
+        String apellido1 = datos.nextLine();
+
+        System.out.print("2do apellido: ");
+        String apellido2 = datos.nextLine();
+
+        System.out.print("Introduce tu edad: ");
+        Integer edad = datos.nextInt();
+
         if (datosPersonasc == 1) {
-            Usuario.solicitarDatosUsuario();
+            Usuario.solicitarDatosPersona(nombre, apellido1, apellido2, edad);
         } else if (datosPersonasc == 2) {
-            Usuario.solicitarDatosBibliotecario();
+            Bibliotecario.solicitarDatosPersona(nombre, apellido1, apellido2, edad);
         }
     }
-
 
 }

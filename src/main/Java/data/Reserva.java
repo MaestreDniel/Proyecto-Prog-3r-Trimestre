@@ -1,5 +1,6 @@
 package data;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -63,6 +64,13 @@ public class Reserva {
         }
     }
 
+    public static Date determinarFecha(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        //System.out.println(formatter.format(date));
+        return date;
+    }
+
     public static void añadirLibroCopia(String isbn) {
         Libro libro = null;
         for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
@@ -74,8 +82,8 @@ public class Reserva {
                 libro.setnCopiasDisponibles(libro.getnCopiasDisponibles() + añadirCopias);
                 libro.setNCopias(libro.getNCopias() + añadirCopias);
                 System.out.println("Copias añadidas. Así queda el libro: " + libro);
-            } else if (!Biblioteca.getLibrolist().get(i).getISBN().equals(isbn)){
-                i=i;
+            } else if (!Biblioteca.getLibrolist().get(i).getISBN().equals(isbn)) {
+                i = i;
             } else {
                 System.out.println("No hemos podido encontrar ese libro");
             }

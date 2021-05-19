@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Biblioteca {
     private String nombre;
     private static List<Libro> librolist = new ArrayList<>();
-    private List<Persona> personal;
+    private static List<Persona> personas = new ArrayList<>();
 
     public String getNombre() {
         return nombre;
@@ -20,7 +20,7 @@ public class Biblioteca {
                 this.nombre = nombre;
                 nom += 1;
             } else {
-                System.out.println("El nombre no se ha introducido correctamente. Vuelve a intentarlo. ");
+                System.out.print("El nombre no se ha introducido correctamente. \nVuelve a intentarlo: ");
                 Scanner scannombre = new Scanner(System.in);
                 nombre = scannombre.nextLine();
             }
@@ -35,33 +35,32 @@ public class Biblioteca {
         Biblioteca.librolist = librolist;
     }
 
-    public List<Persona> getPersonal() {
-        return personal;
+    public static List<Persona> getPersonas() {
+        return personas;
     }
 
-    public void setPersonal(List<Persona> personal) {
-        this.personal = personal;
+    public static void setPersonas(List<Persona> personas) {
+        Biblioteca.personas = personas;
     }
 
     public Biblioteca() {
 
     }
 
-    public Biblioteca(String nombre, List<Persona> personal) {
+    public Biblioteca(String nombre, List<Persona> personas) {
         this.nombre = nombre;
-        this.personal = personal;
+        Biblioteca.personas = personas;
     }
 
     public Biblioteca(Biblioteca biblioteca) {
         this.nombre = biblioteca.nombre;
-        this.personal = biblioteca.personal;
     }
 
     public static void main(String[] args) {
         // El usuario tiene que crear una biblioteca y acto seguido podrá inteactuar con ella
         Biblioteca biblioteca = new Biblioteca();
         System.out.println("Proyecto Biblioteca. Antes de nada, vamos a crear una biblioteca.");
-        System.out.println("Escribe el nombre de la biblioteca (debe empezar en mayúscula): ");
+        System.out.print("Escribe el nombre de la biblioteca (debe empezar en mayúscula): ");
         Scanner scannombre = new Scanner(System.in);
         String nombre = scannombre.nextLine();
         biblioteca.setNombre(nombre);
@@ -75,16 +74,16 @@ public class Biblioteca {
         /* Creamos el menú principal del programa desde el cual el Usuario va a interactuar
         para poder realizar todas las funciones de la biblioteca */
         System.out.println("");
-        System.out.println("-----------------MENU--------------");
+        System.out.println("-----------------MENU-----------------");
         System.out.println("1. Buscar Libro");
         System.out.println("2. Personal biblioteca");
         System.out.println("3. Reservas");
         System.out.println("4. Gestionar Libros");
         System.out.println("5. Mostrar listado de libros");
-        System.out.println("6. Añade libros por defecto (Método auxiliar para probar cosas más rápido)");
+        System.out.println("6. Añade datos por defecto");
         System.out.println("0. Salir");
-        System.out.println("-------------------------------------");
-        System.out.println("**********Elige una Opción***********");
+        System.out.println("--------------------------------------");
+        System.out.print("Elige una Opción: ");
     }
 
     public static void menu() {
@@ -116,16 +115,17 @@ public class Biblioteca {
                         String isbn = libquery.nextLine();
                         Libro.buscarLibroISBN(isbn);
                     }
-
                     mostrarMenu();
                     menu = menuScan.nextInt();
                     break;
 
                 case 2:
                     System.out.println("Elige opción: ");
-                    System.out.println("1. Darse de Alta");
-                    System.out.println("2. Registrarse");
-                    System.out.println("3. Cambiar Contraseña");
+                    System.out.println("1. Dar de Alta");
+                    System.out.println("2. Cambiar Contraseña");
+                    System.out.println("3. Login del bibliotecario");
+                    System.out.println("4. Mostrar personal");
+                    System.out.println("5. Mostrar usuarios inscritos");
                     System.out.println("0. Salir");
 
                     Scanner gestiones = new Scanner(System.in);
@@ -133,41 +133,70 @@ public class Biblioteca {
 
                     if (hacergestiones == 1) {
                         Persona.solicitarDatosPersona();
+                    } else if (hacergestiones == 2) {
+                        //Usuario.cambioContraseña();
+                        System.out.println("El cambio de contraseña está en obras. Vuelve más tarde.");
+                    } else if (hacergestiones == 3) {
+                        System.out.println("Login del bibliotecario");
+                        System.out.print("Introduce el NIF: ");
+                        Scanner bibliot = new Scanner(System.in);
+                        String NIF = bibliot.nextLine();
+                        System.out.print("Introduce la contraseña: ");
+                        String contraseña = bibliot.nextLine();
+                        Bibliotecario.loginBibliotecario(NIF, contraseña);
+                    } else if (hacergestiones == 4) {
+                        Bibliotecario.mostrarBibliotecarios();
+                    } else if (hacergestiones == 5) {
+                        Usuario.mostrarUsuarios();
                     }
-                    if (hacergestiones == 2) {
-                        Usuario.registrarse();
-                    }
-                    if (hacergestiones == 3) {
-                        Usuario.cambioContraseña();
-                    }
-
                     mostrarMenu();
                     menu = menuScan.nextInt();
                     break;
 
                 case 3:
-                    Usuario.login();
-                    System.out.println("1. Reservar Libro");
-                    System.out.println("2. Devolver Libro");
-                    System.out.println("0. Salir");
-                    Scanner reservas = new Scanner(System.in);
-                    Integer reservaLibro = reservas.nextInt();
+                    System.out.println("Comprobando que algún bibliotecario haya realizado login previamente...");
+                    if (Biblioteca.getPersonas().size() > 0) {
+                        //assert Bibliotecario.mostrarBibliotecarios() != null;
+                        if (Bibliotecario.asignarBibliotecario().isLogin()) {
+                            System.out.println("El bibliotecario asignado es: " + Bibliotecario.asignarBibliotecario().getNIF());
+                            System.out.println("------------------");
+                            System.out.println("1. Reservar Libro");
+                            System.out.println("2. Devolver Libro");
+                            System.out.println("0. Salir");
+                            Scanner reservas = new Scanner(System.in);
+                            Integer reservaLibro = reservas.nextInt();
 
-                    if (reservaLibro == 1) {
-                        System.out.println("Lista de libros");
-                        imprimirLibros();
-                        System.out.print("Introduce el ISBN del libro a reservar: ");
-                        Scanner libreserva = new Scanner(System.in);
-                        String isbn = libreserva.nextLine();
-                        Reserva.reservarLibro(isbn);
-                    } else if (reservaLibro == 2) {
-                        System.out.print("Introduce el ISBN del libro a devolver: ");
-                        Scanner libreserva = new Scanner(System.in);
-                        String isbn = libreserva.nextLine();
-                        Reserva.devolverLibro(isbn);
+                            if (reservaLibro == 1) {
+                                System.out.println("Para reservar el libro, el usuario deberá introducir: ");
+                                System.out.print("Número de teléfono: ");
+                                Scanner user = new Scanner(System.in);
+                                String telefono = user.nextLine();
+                                System.out.print("Dirección de correo electrónico: ");
+                                String correo = user.nextLine();
+                                if (Usuario.loginUsuario(telefono, correo)) {
+                                    System.out.println("Lista de libros");
+                                    imprimirLibros();
+                                    System.out.print("Introduce el ISBN del libro a reservar: ");
+                                    Scanner libreserva = new Scanner(System.in);
+                                    String isbn = libreserva.nextLine();
+                                    Reserva.reservarLibro(isbn);
+                                } else {
+                                    System.out.println("Intenta hacer login de nuevo");
+                                }
+
+                            } else if (reservaLibro == 2) {
+                                System.out.print("Introduce el ISBN del libro a devolver: ");
+                                Scanner libreserva = new Scanner(System.in);
+                                String isbn = libreserva.nextLine();
+                                Reserva.devolverLibro(isbn);
+                            }
+                        } else {
+                            System.out.println("Es necesario que un bibliotecario haga login primero. Volviendo al menú principal");
+                        }
                     } else {
-                        System.out.println("No se ha marcado ninguna opción correcta. Volviendo al menú principal.");
+                        System.out.println("No se puede reservar porque no hay bibliotecarios ni usuarios. Introdúcelos.");
                     }
+
                     mostrarMenu();
                     menu = menuScan.nextInt();
                     break;
@@ -208,7 +237,7 @@ public class Biblioteca {
                         imprimirLibros();
                         mostrarMenu();
                         menu = menuScan.nextInt();
-                    } else if (listados == 2){
+                    } else if (listados == 2) {
                         imprimirLibrosDisponibles();
                         mostrarMenu();
                         menu = menuScan.nextInt();
@@ -216,7 +245,7 @@ public class Biblioteca {
                     break;
 
                 case 6:
-                    Libro.ponerLibrosPorDefecto();
+                    Libro.ponerDatosPorDefecto();
                     mostrarMenu();
                     menu = menuScan.nextInt();
                     break;
@@ -232,12 +261,12 @@ public class Biblioteca {
 
     public static void imprimirLibros() {
         // Imprime todos los libros que hay en la biblioteca y las copias totales y disponibles que hay de cada uno
-        if (Libro.contadorLibros() < 1){
+        if (Libro.contadorLibros() < 1) {
             System.out.println("No hay libros que mostrar, añade libros a la biblioteca y vuelve a intentarlo.");
         } else {
             System.out.println("Estos son todos los libros que tenemos registrados: ");
             System.out.println(getLibrolist());
-            if (Libro.contadorLibros() == 1){
+            if (Libro.contadorLibros() == 1) {
                 System.out.println("Hay 1 libro en la biblioteca");
             } else {
                 System.out.println("Hay " + Libro.contadorLibros() + " libros distintos en la biblioteca.");
@@ -245,10 +274,11 @@ public class Biblioteca {
         }
     }
 
-    public static void imprimirLibrosDisponibles(){
+    public static void imprimirLibrosDisponibles() {
+        System.out.println("Libros disponibles: ");
         for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
             if (Biblioteca.getLibrolist().get(i).getnCopiasDisponibles() > 0) {
-                System.out.print("Libro disponible: " + Biblioteca.getLibrolist().get(i));
+                System.out.print(Biblioteca.getLibrolist().get(i));
             }
         }
     }
