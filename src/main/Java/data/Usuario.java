@@ -10,32 +10,30 @@ public class Usuario extends Persona {
     private String direccion;
     private Integer codigo_postal;
     private String correo;
-    private List<String> reservas;
-    private static List<String> loginUsuario = new ArrayList<String>();
-    private static List<String> loginBibliotecario = new ArrayList<String>();
-    private static List<String> listaAltaUsuarios = new ArrayList<String>();
-    private static List<String> listaAltaBibliotecarios = new ArrayList<String>();
+    private List<Reserva> listareservas = new ArrayList<>();
 
+    public List<Reserva> getListareservas() {
+        return listareservas;
+    }
+
+    public void setListareservas(List<Reserva> listareservas) {
+        this.listareservas = listareservas;
+    }
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "telefono=" + telefono +
+        return "Usuario: {" +
+                "nombre=" + getNombre() + '\'' +
+                ", apellido1=" + getApellido1() + '\'' +
+                ", apellido2=" + getApellido2() + '\'' +
+                ", edad=" + getEdad() + '\'' +
+                ", telefono=" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", codigo_postal=" + codigo_postal +
+                ", codigo postal=" + codigo_postal +
                 ", correo='" + correo + '\'' +
-                ", reservas=" + reservas +
-                '}';
-    }
-
-    public static List<String> getLoginUsuario() {
-        return loginUsuario;
-    }
-
-    public static void setLoginUsuario(List<String> loginUsuario) {
-        Usuario.loginUsuario = loginUsuario;
-    }
-
+                ", lista de reservas='" + listareservas + '\'' +
+                "}" + "\n";
+    } // En este caso se pide que imprima también los datos de la clase padre
 
     public String getTelefono() {
         return telefono;
@@ -69,44 +67,25 @@ public class Usuario extends Persona {
         this.correo = correo;
     }
 
-    public List<String> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<String> reservas) {
-        this.reservas = reservas;
-    }
-
     public Usuario() {
 
     }
 
-    public Usuario(String telefono, String direccion, Integer codigo_postal, String correo, List<String> reservas) {
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.codigo_postal = codigo_postal;
-        this.correo = correo;
-        this.reservas = reservas;
-    }
-
-
-    public Usuario(String nombre, String apellido1, String apellido2, Integer edad, String telefono, String direccion, Integer codigo_postal, String correo, List<String> reservas) {
+    public Usuario(String nombre, String apellido1, String apellido2, Integer edad, String telefono, String direccion, Integer codigo_postal, String correo) {
         super(nombre, apellido1, apellido2, edad);
         this.telefono = telefono;
         this.direccion = direccion;
         this.codigo_postal = codigo_postal;
         this.correo = correo;
-        this.reservas = reservas;
     }
 
-    public Usuario(Persona persona, String telefono, String direccion, Integer codigo_postal, String correo, List<String> reservas) {
+    /*public Usuario(Persona persona, String telefono, String direccion, Integer codigo_postal, String correo) {
         super(persona);
         this.telefono = telefono;
         this.direccion = direccion;
         this.codigo_postal = codigo_postal;
         this.correo = correo;
-        this.reservas = reservas;
-    }
+    }*/
 
     public Usuario(Usuario usuario) {
         super(usuario);
@@ -114,201 +93,113 @@ public class Usuario extends Persona {
         this.direccion = usuario.direccion;
         this.codigo_postal = usuario.codigo_postal;
         this.correo = usuario.correo;
-        this.reservas = usuario.reservas;
     }
 
     //Aqui el Usuario rellenara todos sus datos personales
-    public static void solicitarDatosUsuario() {
-        System.out.println("Escribe los datos: ");
-        System.out.println("Nombre de usuario: ");
-        Scanner usuario = new Scanner(System.in);
-        String usuariosc = usuario.nextLine();
-        System.out.println(usuariosc);
-        listaAltaUsuarios.add(usuariosc);
-
-        System.out.println("Número de teléfono: ");
-        Scanner telefono = new Scanner(System.in);
-        String telefonosc = telefono.nextLine();
-        System.out.println(telefonosc);
-        listaAltaUsuarios.add(telefonosc);
-
-
-        System.out.println("Dirección: ");
-        Scanner direccion = new Scanner(System.in);
-        String direccionsc = direccion.nextLine();
-        System.out.println(direccionsc);
-        listaAltaUsuarios.add(direccionsc);
-
-        System.out.println("Código postal: ");
-        Scanner codigopostal = new Scanner(System.in);
-        String codigopostalsc = codigopostal.nextLine();
-        System.out.println(codigopostalsc);
-        listaAltaUsuarios.add(codigopostalsc);
-
-        System.out.println("Dirección email: ");
-        Scanner email = new Scanner(System.in);
-        String emailsc = email.nextLine();
-        System.out.println(emailsc);
-        listaAltaUsuarios.add(emailsc);
-    }
-
-
-    //Aqui el Bilbiotecario rellenara todos sus datos personales
-
-    public static void solicitarDatosBibliotecario() {
-        System.out.println("Escribe los datos: ");
-        System.out.println("Nombre de usuario: ");
-        Scanner usuario = new Scanner(System.in);
-        String usuariosc = usuario.nextLine();
-        System.out.println(usuariosc);
-        listaAltaBibliotecarios.add(usuariosc);
-
-        System.out.println("Número de teléfono: ");
-        Scanner telefono = new Scanner(System.in);
-        String telefonosc = telefono.nextLine();
-        System.out.println(telefonosc);
-        listaAltaBibliotecarios.add(telefonosc);
-
-        System.out.println("Dirección: ");
-        Scanner direccion = new Scanner(System.in);
-        String direccionsc = direccion.nextLine();
-        System.out.println(direccionsc);
-        listaAltaBibliotecarios.add(direccionsc);
-
-        System.out.println("Código postal: ");
-        Scanner codigopostal = new Scanner(System.in);
-        String codigopostalsc = codigopostal.nextLine();
-        System.out.println(codigopostalsc);
-        listaAltaBibliotecarios.add(codigopostalsc);
-
-        System.out.println("Dirección email: ");
-        Scanner email = new Scanner(System.in);
-        String emailsc = email.nextLine();
-        System.out.println(emailsc);
-        listaAltaBibliotecarios.add(emailsc);
-
-    }
-
-    //Este metodo se crea para que se puedan registrar en la biblioteca tanto como Usario como Bibliotecario
-    public static void registrarse() {
-        System.out.println("1.Registrarse como Usuario");
-        System.out.println("2.Registrarse como Bibliotecario");
-        Scanner registrosc = new Scanner(System.in);
-        Integer registro = registrosc.nextInt();
-        if (registro == 1) {
-
+    public static void solicitarDatosPersona(String nombre, String apellido1, String apellido2, Integer edad) {
+        try {
             Usuario usuario = new Usuario();
+            usuario.setNombre(nombre);
+            usuario.setApellido1(apellido1);
+            usuario.setApellido2(apellido2);
+            usuario.setEdad(edad);
 
-            System.out.println("Introduce el telefono");
-            Scanner tel = new Scanner(System.in);
-            String settel = tel.nextLine();
-            usuario.setTelefono(settel);
-            loginUsuario.add(settel);
+            System.out.print("Número de teléfono: ");
+            Scanner datos = new Scanner(System.in);
+            String telefonosc = datos.nextLine();
+            usuario.setTelefono(telefonosc);
 
+            System.out.print("Dirección: ");
+            String direccionsc = datos.nextLine();
+            usuario.setDireccion(direccionsc);
 
-            System.out.println("Introduce el correo");
-            Scanner correosc = new Scanner(System.in);
-            String correo = correosc.nextLine();
-            usuario.setCorreo(correo);
-            loginUsuario.add(correo);
+            System.out.print("Código postal: ");
+            Integer codigopostalsc = datos.nextInt();
+            usuario.setCodigo_postal(codigopostalsc);
 
-        } else if (registro == 2) {
+            System.out.print("Introduce tu correo: ");
+            Scanner mail = new Scanner(System.in);
+            String emailsc = mail.nextLine();
+            usuario.setCorreo(emailsc);
 
+            Biblioteca.getPersonas().add(usuario);
+            System.out.println("Nuevo usuario añadido. Revisa la lista de usuarios inscritos.");
 
-            Bibliotecario bibliotecario = new Bibliotecario();
-
-
-            System.out.println("Introduce el NIF");
-            Scanner nif = new Scanner(System.in);
-            String setnif = nif.nextLine();
-            bibliotecario.setNIF(setnif);
-            loginBibliotecario.add(setnif);
-
-
-            System.out.println("Introduce contraseña");
-            Scanner pass = new Scanner(System.in);
-            String password = pass.nextLine();
-            bibliotecario.setNIF(password);
-            loginBibliotecario.add(password);
+        } catch (Exception E) {
+            System.out.println("Error al introducir algún dato.");
         }
     }
 
+    public static void crearUsuariosPorDefecto() {
+        Biblioteca.getPersonas().add(new Usuario
+                ("Jeroni", "Mateo", "Curieses", 22, "9999", "casa", 777, "hola@hola"));
+        System.out.println("Usuario por defecto añadido con éxito");
+        Usuario.mostrarUsuarios();
+    }
 
-    //Si el Usuario/Bibliotecario ya esta registrado pues solo tendra que iniciar sesion
-    public static void login() {
-
-        System.out.println("1.Login como Bibliotecario");
-        System.out.println("2.Login como Usuario");
-        Scanner loginsc = new Scanner(System.in);
-        Integer login = loginsc.nextInt();
-
-
-        if (login == 1) {
-            System.out.println("Introduce el NIF");
-            Scanner nif = new Scanner(System.in);
-            String setnif = nif.nextLine();
-            for (int i = 0; i < loginBibliotecario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (setnif.equals(loginBibliotecario.get(i))) {
-                    System.out.println("Correcto " + loginBibliotecario.indexOf(setnif));
-                    break;
-                } else if (!setnif.equals(loginBibliotecario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
-                }
+    public static Usuario asignarUsuario(){
+        Usuario usuario = null;
+        for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+            Persona persona = Biblioteca.getPersonas().get(i);
+            if (persona instanceof Usuario) {
+                usuario = (Usuario) persona;
             }
-            System.out.println("Introduce contraseña");
-            Scanner pass = new Scanner(System.in);
-            String password = pass.nextLine();
+        }
+        return usuario;
+    }
 
-            for (int i = 0; i < loginBibliotecario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (password.equals(loginBibliotecario.get(i))) {
-                    System.out.println("Correcto" + loginBibliotecario.indexOf(password));
-                    break;
-                } else if (!password.equals(loginBibliotecario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
-                }
+    public static void mostrarUsuarios() {
+        Usuario usuario = null;
+        System.out.println("Estos son nuestros usuarios: ");
+        for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+            Persona persona = Biblioteca.getPersonas().get(i);
+            if (persona instanceof Usuario) {
+                usuario = (Usuario) persona;
+                System.out.println(usuario);
             }
-        } else if (login == 2) {
+        }
+    }
 
-            System.out.println("Introduce el telefono");
-            Scanner tel = new Scanner(System.in);
-            String settel = tel.nextLine();
-            for (int i = 0; i < loginUsuario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (settel.equals(loginUsuario.get(i))) {
-                    System.out.println("Correcto " + loginUsuario.indexOf(settel));
+    public static boolean loginUsuario(String telefono, String correo) {
+        boolean login = false;
+        boolean tel = false;
+        boolean mail = false;
+        Usuario usuario = null;
+        // Comprobamos que existe el teléfono recorriendo la lista de Personas registradas
+        for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+            Persona persona = Biblioteca.getPersonas().get(i);
+            if (persona instanceof Usuario) {
+                usuario = (Usuario) persona;
+                if (telefono.equals(usuario.getTelefono())) {
+                    tel = true;
                     break;
-                } else if (!settel.equals(loginUsuario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
-                }
-            }
-            System.out.println("Introduce el correo");
-            Scanner correosc = new Scanner(System.in);
-            String correo = correosc.nextLine();
-
-            for (int i = 0; i < loginUsuario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (correo.equals(loginUsuario.get(i))) {
-                    System.out.println("Correcto " + loginUsuario.indexOf(correo));
-                    break;
-                } else if (!correo.equals(loginUsuario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
                 }
             }
         }
+        // Comprobamos que existe el correo recorriendo la lista de Personas registradas
+        for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+            Persona persona = Biblioteca.getPersonas().get(i);
+            if (persona instanceof Usuario) {
+                usuario = (Usuario) persona;
+                if (correo.equals(usuario.getCorreo())) {
+                    mail = true;
+                    break;
+                }
+            }
+        }
+        // Comprueba que el teléfono y el correo estén correctos
+        if (tel && mail) {
+            login = true;
+            //usuario.setLogin(true);
+            System.out.println("Bienvenido, usuario: " + usuario.getNombre() + " " + usuario.getApellido1());
+        } else {
+            System.out.println("Las credenciales no coinciden");
+        }
+        return login;
     }
 
     //Si deciden cambair la contraseña pues podran hacerlo pero previamente haciendo login
-    public static void cambioContraseña() {
+    /*public static void cambioContraseña() {
         System.out.println("1.Cambio como Bibliotecario");
         System.out.println("2.Cambio como Usuario");
         Scanner cambioC = new Scanner(System.in);
@@ -319,15 +210,13 @@ public class Usuario extends Persona {
             System.out.println("Introduce el NIF");
             Scanner nif = new Scanner(System.in);
             String setnif = nif.nextLine();
-            for (int i = 0; i < loginBibliotecario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (setnif.equals(loginBibliotecario.get(i))) {
-                    System.out.println("Correcto " + loginBibliotecario.indexOf(setnif));
+            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+                //Comprobamos que existe el NIF recorriendo la lista de Bibliotecarios registrados
+                if (setnif.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(setnif));
                     break;
-                } else if (!setnif.equals(loginBibliotecario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
+                } else if (!setnif.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("-1"); // Si no encuentra el NIF que introducimos
                 }
             }
 
@@ -336,33 +225,31 @@ public class Usuario extends Persona {
             Scanner pass = new Scanner(System.in);
             String password = pass.nextLine();
 
-            for (int i = 0; i < loginBibliotecario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (password.equals(loginBibliotecario.get(i))) {
-                    System.out.println("Correcto " + loginBibliotecario.indexOf(password));
+            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+                //Comprobamos que existe la contraseña recorriendo la lista de Bibliotecarios registrados
+                if (password.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(password));
+
+                    //Una vez hecho el login tendran que introducir la antigua contraseña y la nueva
+                    System.out.println("Introduce la antigua contraseña");
+                    pass = new Scanner(System.in);
+                    password = pass.nextLine();
+                    bibliotecario.setNIF(password);
+                    Biblioteca.getPersonas().remove(password);
+
+                    System.out.println("Introduce la nueva contraseña");
+                    pass = new Scanner(System.in);
+                    password = pass.nextLine();
+                    bibliotecario.setNIF(password);
+
+
+                    System.out.println("Contraseña cambiada con exito" +
+                            "La nueva contraseña es" + password);
                     break;
-                } else if (!password.equals(loginBibliotecario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
+                } else if (!password.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("-1"); // Si no encuentra la contraseña que se introducida
                 }
 
-                //Una vez hecho el login tendran que introducir la antigua contraseña y la nueva
-
-                System.out.println("Introduce la antigua contraseña");
-                pass = new Scanner(System.in);
-                password = pass.nextLine();
-                bibliotecario.setNIF(password);
-                loginBibliotecario.remove(password);
-
-                System.out.println("Introduce la nueva contraseña");
-                pass = new Scanner(System.in);
-                password = pass.nextLine();
-                bibliotecario.setNIF(password);
-                loginBibliotecario.add(password);
-
-                System.out.println("Contraseña cambiada con exito" +
-                        "La nueva contraseña es" + password);
 
             }
             //En el caso de los usuarios como no tienen contraseña lo que pueden cambiar es el teléfono que lo usan como contraseña
@@ -371,15 +258,13 @@ public class Usuario extends Persona {
             System.out.println("Introduce el telefono");
             Scanner tel = new Scanner(System.in);
             String telsc = tel.nextLine();
-            for (int i = 0; i < loginUsuario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (telsc.equals(loginUsuario.get(i))) {
-                    System.out.println("Correcto " + loginUsuario.indexOf(telsc));
+            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+                //Comprobamos que existe el telefono recorriendo la lista de Usuarios registrados
+                if (telsc.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(telsc));
                     break;
-                } else if (!telsc.equals(loginUsuario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
+                } else if (!telsc.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("-1"); // Si no encuentra el telefono que se introduce
                 }
 
             }
@@ -388,37 +273,32 @@ public class Usuario extends Persona {
             System.out.println("Introduce el correo");
             Scanner cor = new Scanner(System.in);
             String correosc = cor.nextLine();
+            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
+                //Comprobamos que existe el correo recorriendo la lista de Usuarios registrados
+                if (correosc.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(correosc));
+                    //Para realizar el cambio tendran que escribir la antigua y acto seguido la nueva
 
-            for (int i = 0; i < loginUsuario.size(); i++) {
-                // Recorrer el listado de ISBNs para encontrar el que solicita el usuario
-                if (correosc.equals(loginUsuario.get(i))) {
-                    System.out.println("Correcto " + loginUsuario.indexOf(correosc));
+                    System.out.println("Introduce el antigua numero");
+                    tel = new Scanner(System.in);
+                    telsc = tel.nextLine();
+                    usuario.setTelefono(telsc);
+                    Biblioteca.getPersonas().remove(telsc);
+
+                    System.out.println("Introduce el nuevo numero");
+                    tel = new Scanner(System.in);
+                    telsc = tel.nextLine();
+                    usuario.setTelefono(telsc);
+
+
+                    System.out.println("Numero cambiado con exito" +
+                            " el nuevo numero es" + telsc);
                     break;
-                } else if (!correosc.equals(loginUsuario.get(i))) {
-                    i = i;
-                } else {
-                    System.out.println("-1"); // Si no encuentra el ISBN que se pide
+                } else if (!correosc.equals(Biblioteca.getPersonas().get(i))) {
+                    System.out.println("-1"); // Si no encuentra el coreo que se introduce
                 }
             }
-
-            //Para realizar el cambio tendran que escribir la antigua y acto seguido la nueva
-
-            System.out.println("Introduce el antigua numero");
-            tel = new Scanner(System.in);
-            telsc = tel.nextLine();
-            usuario.setTelefono(telsc);
-            loginUsuario.remove(telsc);
-
-            System.out.println("Introduce el nuevo numero");
-            tel = new Scanner(System.in);
-            telsc = tel.nextLine();
-            usuario.setTelefono(telsc);
-            loginUsuario.add(telsc);
-
-            System.out.println("Numero cambiado con exito" +
-                    " el nuevo numero es" + telsc);
-
         }
-    }
+    }*/
 }
 

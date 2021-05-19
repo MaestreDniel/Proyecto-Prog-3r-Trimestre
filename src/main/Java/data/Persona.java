@@ -2,13 +2,11 @@ package data;
 
 import java.util.Scanner;
 
-public abstract class Persona  {
+public abstract class Persona {
     private String nombre;
     private String apellido1;
     private String apellido2;
     private Integer edad;
-
-
 
     public String getNombre() {
         return nombre;
@@ -42,10 +40,9 @@ public abstract class Persona  {
         this.edad = edad;
     }
 
-    public Persona(){
+    public Persona() {
 
     }
-
 
     public Persona(String nombre, String apellido1, String apellido2, Integer edad) {
         this.nombre = nombre;
@@ -72,18 +69,34 @@ public abstract class Persona  {
     }
 
     //Creamos esta clase para que se soliciten todos los datos del usuario para poder darse de alta
-    public static void solicitarDatosPersona(){
-        Persona persona = null;
-        System.out.println("1.Soy un Usuario");
-        System.out.println("2.Soy un Bibliotecario");
-        Scanner datosPersona = new Scanner(System.in);
-        Integer datosPersonasc = datosPersona.nextInt();
-        if (datosPersonasc ==1) {
-            Usuario.solicitarDatosUsuario();
-        }else if (datosPersonasc ==2){
-            Usuario.solicitarDatosBibliotecario();
+    public static void solicitarDatosPersona() {
+        try {
+            System.out.println("1. Alta a un Usuario");
+            System.out.println("2. Alta a un Bibliotecario");
+            Scanner dato = new Scanner(System.in);
+            Integer datosPersonasc = dato.nextInt();
+
+            System.out.println("Escribe los datos: ");
+            System.out.print("Introduce tu nombre: ");
+            Scanner datos = new Scanner(System.in);
+            String nombre = datos.nextLine();
+
+            System.out.print("1er apellido: ");
+            String apellido1 = datos.nextLine();
+
+            System.out.print("2do apellido: ");
+            String apellido2 = datos.nextLine();
+
+            System.out.print("Introduce tu edad: ");
+            Integer edad = datos.nextInt();
+
+            if (datosPersonasc == 1) {
+                Usuario.solicitarDatosPersona(nombre, apellido1, apellido2, edad);
+            } else if (datosPersonasc == 2) {
+                Bibliotecario.solicitarDatosPersona(nombre, apellido1, apellido2, edad);
+            }
+        } catch (Exception E) {
+            System.out.println("Error al introducir algún dato.");
         }
     }
-
-
 }
