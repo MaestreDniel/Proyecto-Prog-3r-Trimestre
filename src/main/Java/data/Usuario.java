@@ -23,15 +23,15 @@ public class Usuario extends Persona {
     @Override
     public String toString() {
         return "Usuario: {" +
-                "nombre=" + getNombre() + '\'' +
-                ", apellido1=" + getApellido1() + '\'' +
-                ", apellido2=" + getApellido2() + '\'' +
-                ", edad=" + getEdad() + '\'' +
-                ", telefono=" + telefono + '\'' +
+                "nombre='" + getNombre() + '\'' +
+                ", apellido1='" + getApellido1() + '\'' +
+                ", apellido2='" + getApellido2() + '\'' +
+                ", edad='" + getEdad() + '\'' +
+                ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", codigo postal=" + codigo_postal +
                 ", correo='" + correo + '\'' +
-                ", lista de reservas='" + listareservas + '\'' +
+                ", historial de reservas='" + listareservas + '\'' +
                 "}" + "\n";
     } // En este caso se pide que imprima también los datos de la clase padre
 
@@ -95,7 +95,7 @@ public class Usuario extends Persona {
         this.correo = usuario.correo;
     }
 
-    //Aqui el Usuario rellenara todos sus datos personales
+    // Aquí el Usuario rellenará todos sus datos personales
     public static void solicitarDatosPersona(String nombre, String apellido1, String apellido2, Integer edad) {
         try {
             Usuario usuario = new Usuario();
@@ -130,6 +130,8 @@ public class Usuario extends Persona {
         }
     }
 
+    /* Utiliza el constructor sobrecargado de Usuario para generar uno directamente
+    Además, hereda de la clase abstracta Persona */
     public static void crearUsuariosPorDefecto() {
         Biblioteca.getPersonas().add(new Usuario
                 ("Jeroni", "Mateo", "Curieses", 22, "9999", "casa", 777, "hola@hola"));
@@ -137,17 +139,7 @@ public class Usuario extends Persona {
         Usuario.mostrarUsuarios();
     }
 
-    public static Usuario asignarUsuario(){
-        Usuario usuario = null;
-        for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
-            Persona persona = Biblioteca.getPersonas().get(i);
-            if (persona instanceof Usuario) {
-                usuario = (Usuario) persona;
-            }
-        }
-        return usuario;
-    }
-
+    // Muestra la lista de los usuarios inscritos
     public static void mostrarUsuarios() {
         Usuario usuario = null;
         System.out.println("Estos son nuestros usuarios: ");
@@ -160,8 +152,8 @@ public class Usuario extends Persona {
         }
     }
 
-    public static boolean loginUsuario(String telefono, String correo) {
-        boolean login = false;
+    // Hace el login del Usuario y retorna al usuario en cuestión si ha conseguido hacerlo correctamente
+    public static Usuario loginUsuario(String telefono, String correo) {
         boolean tel = false;
         boolean mail = false;
         Usuario usuario = null;
@@ -189,116 +181,12 @@ public class Usuario extends Persona {
         }
         // Comprueba que el teléfono y el correo estén correctos
         if (tel && mail) {
-            login = true;
-            //usuario.setLogin(true);
             System.out.println("Bienvenido, usuario: " + usuario.getNombre() + " " + usuario.getApellido1());
+            return usuario;
         } else {
             System.out.println("Las credenciales no coinciden");
+            return null;
         }
-        return login;
     }
-
-    //Si deciden cambair la contraseña pues podran hacerlo pero previamente haciendo login
-    /*public static void cambioContraseña() {
-        System.out.println("1.Cambio como Bibliotecario");
-        System.out.println("2.Cambio como Usuario");
-        Scanner cambioC = new Scanner(System.in);
-        Integer cambioCsc = cambioC.nextInt();
-
-
-        if (cambioCsc == 1) {
-            System.out.println("Introduce el NIF");
-            Scanner nif = new Scanner(System.in);
-            String setnif = nif.nextLine();
-            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
-                //Comprobamos que existe el NIF recorriendo la lista de Bibliotecarios registrados
-                if (setnif.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(setnif));
-                    break;
-                } else if (!setnif.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("-1"); // Si no encuentra el NIF que introducimos
-                }
-            }
-
-            Bibliotecario bibliotecario = new Bibliotecario();
-            System.out.println("Introduce contraseña");
-            Scanner pass = new Scanner(System.in);
-            String password = pass.nextLine();
-
-            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
-                //Comprobamos que existe la contraseña recorriendo la lista de Bibliotecarios registrados
-                if (password.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(password));
-
-                    //Una vez hecho el login tendran que introducir la antigua contraseña y la nueva
-                    System.out.println("Introduce la antigua contraseña");
-                    pass = new Scanner(System.in);
-                    password = pass.nextLine();
-                    bibliotecario.setNIF(password);
-                    Biblioteca.getPersonas().remove(password);
-
-                    System.out.println("Introduce la nueva contraseña");
-                    pass = new Scanner(System.in);
-                    password = pass.nextLine();
-                    bibliotecario.setNIF(password);
-
-
-                    System.out.println("Contraseña cambiada con exito" +
-                            "La nueva contraseña es" + password);
-                    break;
-                } else if (!password.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("-1"); // Si no encuentra la contraseña que se introducida
-                }
-
-
-            }
-            //En el caso de los usuarios como no tienen contraseña lo que pueden cambiar es el teléfono que lo usan como contraseña
-        } else if (cambioCsc == 2) {
-
-            System.out.println("Introduce el telefono");
-            Scanner tel = new Scanner(System.in);
-            String telsc = tel.nextLine();
-            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
-                //Comprobamos que existe el telefono recorriendo la lista de Usuarios registrados
-                if (telsc.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(telsc));
-                    break;
-                } else if (!telsc.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("-1"); // Si no encuentra el telefono que se introduce
-                }
-
-            }
-
-            Usuario usuario = new Usuario();
-            System.out.println("Introduce el correo");
-            Scanner cor = new Scanner(System.in);
-            String correosc = cor.nextLine();
-            for (int i = 0; i < Biblioteca.getPersonas().size(); i++) {
-                //Comprobamos que existe el correo recorriendo la lista de Usuarios registrados
-                if (correosc.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("Correcto " + Biblioteca.getPersonas().indexOf(correosc));
-                    //Para realizar el cambio tendran que escribir la antigua y acto seguido la nueva
-
-                    System.out.println("Introduce el antigua numero");
-                    tel = new Scanner(System.in);
-                    telsc = tel.nextLine();
-                    usuario.setTelefono(telsc);
-                    Biblioteca.getPersonas().remove(telsc);
-
-                    System.out.println("Introduce el nuevo numero");
-                    tel = new Scanner(System.in);
-                    telsc = tel.nextLine();
-                    usuario.setTelefono(telsc);
-
-
-                    System.out.println("Numero cambiado con exito" +
-                            " el nuevo numero es" + telsc);
-                    break;
-                } else if (!correosc.equals(Biblioteca.getPersonas().get(i))) {
-                    System.out.println("-1"); // Si no encuentra el coreo que se introduce
-                }
-            }
-        }
-    }*/
 }
 

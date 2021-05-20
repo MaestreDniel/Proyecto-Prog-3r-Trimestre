@@ -68,13 +68,10 @@ public abstract class Persona {
                 '}';
     }
 
-    //Creamos esta clase para que se soliciten todos los datos del usuario para poder darse de alta
+    // Creamos este método para que se soliciten todos los datos del usuario para poder darse de alta
     public static void solicitarDatosPersona() {
         try {
-            System.out.println("1. Alta a un Usuario");
-            System.out.println("2. Alta a un Bibliotecario");
-            Scanner dato = new Scanner(System.in);
-            Integer datosPersonasc = dato.nextInt();
+            // Pedimos los datos en común de los Usuarios y Bibliotecarios
 
             System.out.println("Escribe los datos: ");
             System.out.print("Introduce tu nombre: ");
@@ -89,6 +86,14 @@ public abstract class Persona {
 
             System.out.print("Introduce tu edad: ");
             Integer edad = datos.nextInt();
+
+            // Después de introducir los datos en común, preguntamos si es un Usuario o un Bibliotecario
+
+            System.out.println("1. Alta a un Usuario");
+            System.out.println("2. Alta a un Bibliotecario");
+            System.out.print("Elige opción: ");
+            Scanner dato = new Scanner(System.in);
+            Integer datosPersonasc = dato.nextInt();
 
             if (datosPersonasc == 1) {
                 Usuario.solicitarDatosPersona(nombre, apellido1, apellido2, edad);

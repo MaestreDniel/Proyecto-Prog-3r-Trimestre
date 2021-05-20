@@ -59,6 +59,7 @@ public class Libro {
         return nCopias;
     }
 
+    // Este setter implementa el control del número de copias al añadir un libro, que no puede ser menor de 1
     public void setNCopias(Integer nCopias) {
         int libro = 0;
         while (libro < 1) {
@@ -107,7 +108,7 @@ public class Libro {
         this.nCopiasDisponibles = libro.nCopiasDisponibles;
     }
 
-
+    // Método para añadir los libros de manera manual
     public static void añadirLibro() {
         try {
             Libro libro = new Libro();
@@ -144,16 +145,15 @@ public class Libro {
         }
     }
 
+    /* Si queremos eliminar el libro de la biblioteca hacemos que el usuario nos diga el ISBN del libro
+    y acto seguido, se eliminará el libro que tenga ese ISBN */
     public static void eliminarLibro(String isbn) {
         try {
-            /* Si queremos eliminar el libro de la biblioteca hacemos que el usuario nos diga el ISBN del libro
-            y acto seguido, se eliminará el libro que tenga ese ISBN */
             Libro libro = null;
             // En este for se especifica cuál es el objeto libro que hay que tratar
             for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
                 if (Biblioteca.getLibrolist().get(i).getISBN().equals(isbn)) {
                     libro = Biblioteca.getLibrolist().get(i);
-                    //assert libro != null;
                     if (!libro.nCopias.equals(libro.nCopiasDisponibles)) {
                         System.out.println("Este libro no se puede eliminar porque tiene reservas.");
                     } else {
@@ -178,15 +178,14 @@ public class Libro {
                         }
                     }
                 }
-                // Recorrer el listado de libros para encontrar el que solicita el usuario
             }
 
         } catch (Exception E) {
             System.out.println("Error al eliminar libro. Es posible que el ISBN introducido no exista.");
         }
-
     }
 
+    // Buscará el libro según el ISBN que introduzca el usuario o bibliotecario
     public static void buscarLibroISBN(String isbn) {
         Libro libro = null;
         for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
@@ -209,6 +208,7 @@ public class Libro {
         }
     }
 
+    // Buscará el libro según el título que introduzca el usuario o bibliotecario
     public static void buscarLibroTitulo(String titulo) {
         Libro libro = null;
         for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
@@ -230,9 +230,8 @@ public class Libro {
         }
     }
 
-
+    // Creamos varios libros por defecto para testear más rápido las funcionalidades del programa
     public static void ponerlibrosPorDefecto() {
-        // Creamos varios libros por defecto para testear más rápido las funcionalidades del programa
         Libro libro = new Libro(
                 "1234", "Quijote", "Cervantes", "Edad media", 3, 3);
         Libro libro2 = new Libro(
@@ -247,13 +246,14 @@ public class Libro {
         System.out.println(Biblioteca.getLibrolist());
     }
 
+    // Unifica todos los métodos que permiten poner datos por defecto
     public static void ponerDatosPorDefecto() {
-
-        System.out.println("Elige qué datos quieres introducir por defecto");
+        System.out.println("Elige qué datos quieres introducir por defecto: ");
         System.out.println("1. Libros por defecto");
         System.out.println("2. Usuarios por defecto");
         System.out.println("3. Bibliotecarios por defecto");
         System.out.println("4. Todo por defecto");
+        System.out.print("Elige opción: ");
         Scanner defecto = new Scanner(System.in);
         Integer defectoSc = defecto.nextInt();
 
@@ -270,8 +270,8 @@ public class Libro {
         }
     }
 
+    // Recorre la lista de libros para encontrar el libro que se quiere reservar a partir del ISBN
     public static boolean libroReservado(String isbn) {
-        // Recorre la lista de libros para encontrar el libro que se quiere reservar a partir del ISBN
         boolean reservado = true;
         Libro libro = null;
         for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
@@ -280,23 +280,18 @@ public class Libro {
             }
         }
 
-        // Cuando el libro está reservado el contador de copias baja en 1 siempre y cuando no sea = 0
+        // Cuando el libro se reserva, el contador de copias baja en 1 siempre y cuando no sea = 0
         assert libro != null;
         if (libro.getnCopiasDisponibles() > 0) {
             libro.setnCopiasDisponibles(libro.getnCopiasDisponibles() - 1);
-            Reserva reserva = new Reserva();
-            reserva.setLibro(libro);
-            reserva.setFechaReserva(Reserva.determinarFecha());
-            Usuario usuario = Usuario.asignarUsuario();
-            usuario.getListareservas().add(reserva);
         } else {
             reservado = false;
         }
         return reservado;
     }
 
+    // Funciona de manera casi análoga a libroReservado
     public static boolean libroDevuelto(String isbn) {
-        // Funciona de manera casi análoga a libroReservado
         boolean devuelto = true;
         Libro libro = null;
         for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
@@ -309,15 +304,34 @@ public class Libro {
         assert libro != null;
         if (libro.getnCopiasDisponibles() < libro.getNCopias()) {
             libro.setnCopiasDisponibles(libro.getnCopiasDisponibles() + 1);
-            //Usuario usuario = Usuario.asignarUsuario();
         } else {
             devuelto = false;
         }
         return devuelto;
     }
 
+    // Implementa el contador de libros DISTINTOS que hay registrados en la biblioteca
     public static Integer contadorLibros() {
         return Biblioteca.getLibrolist().size();
     }
 
+    // Incrementa el número de copias de los libros originales que ya están registrados
+    public static void añadirCopias(String isbn) {
+        Libro libro = null;
+        for (int i = 0; i < Biblioteca.getLibrolist().size(); i++) {
+            if (Biblioteca.getLibrolist().get(i).getISBN().equals(isbn)) {
+                libro = Biblioteca.getLibrolist().get(i);
+                System.out.println("Cuantas copias quieres añadir?");
+                Scanner añadirCopiassc = new Scanner(System.in);
+                Integer añadirCopias = añadirCopiassc.nextInt();
+                libro.setnCopiasDisponibles(libro.getnCopiasDisponibles() + añadirCopias);
+                libro.setNCopias(libro.getNCopias() + añadirCopias);
+                System.out.println("Copias añadidas. Así queda el libro: " + libro);
+            } else if (!Biblioteca.getLibrolist().get(i).getISBN().equals(isbn)) {
+                i = i;
+            } else {
+                System.out.println("No hemos podido encontrar ese libro");
+            }
+        }
+    }
 }
