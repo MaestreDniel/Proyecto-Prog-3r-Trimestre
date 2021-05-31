@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *  Proyecto libre 3r trimestre en Java - Módulo de Programación (FP 1º DAW)
+ *  Autores: Daniel Maestre Hermoso / Jeroni Mateo Curieses
+ *  Fecha de presentación: 31/05/2021
+ *  Versión: 1.0
+ *
+ *  Programa para gestionar los libros, las reservas, los usuarios y otros datos esenciales de una biblioteca.
+ *  Hemos escrito el código de la manera más parecida posible a lo que se indicaba en el enunciado.
+ */
+
 public class Biblioteca {
     private String nombre;
     private static List<Libro> librolist = new ArrayList<>();
